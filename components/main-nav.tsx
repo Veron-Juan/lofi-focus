@@ -6,6 +6,7 @@ import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
 import { Icons } from "@/components/icons"
 
+
 interface MainNavProps {
   items?: NavItem[]
 }
@@ -14,7 +15,8 @@ export function MainNav({ items }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
       <Link href="/" className="flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6" />
+        <img className="h-20 w-20 mt-5" src="/sculptureLogin.svg"  />
+        {/* <Icons.logo className="h-6 w-6" /> */}
         <span className="inline-block font-bold">{siteConfig.name}</span>
       </Link>
       {items?.length ? (
