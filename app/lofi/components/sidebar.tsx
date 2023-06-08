@@ -15,6 +15,7 @@ import {
   import { ScrollArea } from "@/components/ui/scroll-area"
   
   import { Playlist } from "../data/playlists"
+import { Card } from "@/components/ui/card"
   
   interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     playlists: Playlist[]
@@ -51,7 +52,47 @@ import {
             <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
               Favorites
             </h2>
-            <div className="space-y-1">
+
+
+            
+
+            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
+              <Card >
+                <img className="rounded-md" src="/pomodorosculpture.png" width={42} />
+              </Card>
+              <div className="space-y-1 text-sm">
+        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
+        <p className="text-xs text-muted-foreground">asdasda</p>
+      </div>
+            </div>
+            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
+              <Card >
+                <img className="rounded-md" src="/community.png" width={42} />
+              </Card>
+              <div className="space-y-1 text-sm">
+        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
+        <p className="text-xs text-muted-foreground">asdasda</p>
+      </div>
+            </div>
+            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
+              <Card >
+                <img className="rounded-md" src="/sculptureLogin.svg" width={42} />
+              </Card>
+              <div className="space-y-1 text-sm">
+        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
+        <p className="text-xs text-muted-foreground">asdasda</p>
+      </div>
+            </div>
+            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
+              <Card >
+                <img className="rounded-md" src="/sculpturemusicbg.png" width={42} />
+              </Card>
+              <div className="space-y-1 text-sm">
+        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
+        <p className="text-xs text-muted-foreground">asdasda</p>
+      </div>
+            </div>
+            {/* <div className="space-y-1">
               <Button variant="ghost" size="sm" className="w-full justify-start">
                 <ListMusic className="mr-2 h-4 w-4" />
                 Playlists
@@ -72,7 +113,7 @@ import {
                 <Library className="mr-2 h-4 w-4" />
                 Albums
               </Button>
-            </div>
+            </div> */}
           </div>
           
         </div>

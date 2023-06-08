@@ -23,6 +23,7 @@ import { CardMenu } from "./components/CardMenu"
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import Link from "next/link"
 
 
 export const metadata: Metadata = {
@@ -61,8 +62,8 @@ export default function MusicPage() {
                         </TabsTrigger>
                         <TabsTrigger value="podcasts">Pomodoro</TabsTrigger>
                         
-                        <TabsTrigger value="live" >
-                          Community
+                        <TabsTrigger value="favorites" >
+                          Favorites
                         </TabsTrigger>
                       </TabsList>
                       <div className="">
@@ -210,6 +211,33 @@ export default function MusicPage() {
                       <Separator className="my-4" />
                       <PodcastEmptyPlaceholder />
                     </TabsContent>
+                    
+                    <TabsContent value="favorites" className="h-full flex-col border-none p-0 data-[state=active]:flex">
+                    <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                          <h2 className="text-2xl font-semibold tracking-tight">
+                            Favorites
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            Your favorite lofi music. Updated daily.
+                          </p>
+                        </div>
+                      </div>
+                      <Separator className="my-4" />
+                      
+                      <div className="flex h-[450px] shrink-0 items-center justify-center rounded-md border border-dashed">
+      <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
+        
+        <h3 className="mt-4 text-lg font-semibold">No episodes added</h3>
+        <p className="mb-4 mt-2 text-sm text-muted-foreground">
+          You have not added any podcasts. Add one below.
+        </p>
+        <Button>Add favorites</Button>
+        </div>
+        </div>
+                    </TabsContent>
+
+
                   </Tabs>
                 </div>
               </div>
