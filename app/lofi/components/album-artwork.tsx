@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { ListMusic, PlusCircle } from "lucide-react"
+import { ListMusic, PlusCircle, Star } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
@@ -60,7 +60,7 @@ export function AlbumArtwork({
             
           </div>
         </ContextMenuTrigger>
-        <ContextMenuContent className="w-40">
+        {/* <ContextMenuContent className="w-40">
           <ContextMenuItem>Add to Library</ContextMenuItem>
           <ContextMenuSub>
             <ContextMenuSubTrigger>Add to Playlist</ContextMenuSubTrigger>
@@ -84,11 +84,14 @@ export function AlbumArtwork({
           <ContextMenuSeparator />
           <ContextMenuItem>Like</ContextMenuItem>
           <ContextMenuItem>Share</ContextMenuItem>
-        </ContextMenuContent>
+        </ContextMenuContent> */}
       </ContextMenu>
-      <div className="space-y-1 text-sm">
+      <div className="space-y-1 text-sm relative">
         <h3 className="font-medium leading-none">{album.name}</h3>
         <p className="text-xs text-muted-foreground">{album.artist}</p>
+        <div className="absolute right-0 bottom-2 cursor-pointer hover:text-fuchsia-800 ">
+              <Star width={20}  />
+            </div>
       </div>
     </div>
   )
