@@ -15,13 +15,14 @@ interface VideoPlayerProps  {
 const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc}) => {
   return (
     <ReactPlayer
-      light={<img className='h-full object-cover transition-all hover:scale-105'   src={thumbnailSrc} alt='Thumbnail'/>}
+      light={<img className='h-full object-cover transition-all hover:scale-105 '   src={thumbnailSrc} alt='Thumbnail'/>}
       url="https://www.youtube.com/watch?v=i43tkaTXtwI"
       fallback={<LoaderPlayer/>}
       controls
       
       playing
-      width="250px"
+      
+      width="330px"
       height="250px"
       
        

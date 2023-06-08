@@ -2,7 +2,6 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { AspectRatio } from "@radix-ui/react-aspect-ratio"
 import { Music, TimerReset, Users } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
