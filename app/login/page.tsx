@@ -18,7 +18,11 @@ export default function DemoCreateAccount() {
     <div className="max-w-md mx-auto">
         
     <Card>
-    <img className="mx-auto mt-6" src="/sculptureLogin.svg" width={245}  alt="login" />
+      <div className="flex items-center justify-center gap-2 relative mr-12">
+    <img className=" mt-6" src="/sculptureLogin.svg" width={190}  alt="login" />
+    <h2 className="font-bold text-xl absolute right-[50px]">Lofi Focus</h2>
+
+      </div>
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Create an account</CardTitle>
         <CardDescription>

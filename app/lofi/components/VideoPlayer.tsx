@@ -22,7 +22,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc}) => {
       
       playing
       
-      width="330px"
+      width="250px"
       height="250px"
       
        
