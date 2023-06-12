@@ -14,8 +14,42 @@ import VideoPlayer from "../lofi/components/VideoPlayer"
 import { AlbumArtwork } from "../lofi/components/album-artwork"
 import { madeForYouAlbums } from "../lofi/data/albums"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useEffect } from "react"
 
-export default function CommunityPage() {
+
+
+
+
+
+
+
+
+export default async function CommunityPage() {
+
+  async function getData() {
+    const res = await fetch("http://localhost:3000/api/posts", {
+      cache: "no-store",
+    });
+  
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+  
+    
+    return res.json();
+  
+  }
+
+
+
+  const data = await getData();
+  
+
+  
+
+  
+  
+
   return (
     <div className="border-t   ">
       <div className="bg-background   ">
@@ -52,21 +86,38 @@ export default function CommunityPage() {
                   </div>
 
                   <Separator className="my-4" />
-
+                
                   <div className="flex flex-wrap my-9 justify-center">
-            <Card className="w-64 md:w-[270px] lg:w-[330px] h-auto  ml-4">
+                  {data?.map((i:any)=> {
+                  return(
+                    <Card className="w-64 md:w-[270px] lg:w-[330px] h-auto  ml-4">
                 
               
               <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
                 <div className="flex items-center gap-2">
             <Avatar>
-              <AvatarImage src="/notion-avatar-1.png" />
+              <AvatarImage src={i.avatar} />
               <AvatarFallback>OM</AvatarFallback>
             </Avatar>
             
             <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">6 hrs ago</p>
+              <p className="text-sm font-medium leading-none">{i.username}</p>
+              <p className="text-sm text-muted-foreground">
+  {(() => {
+    const createdAt = new Date(i.createdAt);
+    const fechaActual = new Date();
+
+    const diferenciaMilisegundos = fechaActual.getTime() - createdAt.getTime();
+    const minutosTranscurridos = Math.floor(diferenciaMilisegundos / (1000 * 60));
+    const horasTranscurridas = Math.floor(minutosTranscurridos / 60);
+
+    if (minutosTranscurridos < 60) {
+      return `${minutosTranscurridos} min`;
+    } else {
+      return `${horasTranscurridas} h`;
+    }
+  })()}
+</p>
             </div>
             </div>
           <Star  />
@@ -77,118 +128,17 @@ export default function CommunityPage() {
               />
               </div>
               <CardTitle className="ml-3 mt-3  " >
-                Pom Lofi music
+                {i.title}
               </CardTitle>
-              <CardDescription className="ml-3 mt-1 ">Music for asdjas asdjasds addasj asjds das dasd </CardDescription>
+              <CardDescription className="ml-3 mt-1 ">{i.description} </CardDescription>
             </Card>
-            <Card className="w-64 md:w-[270px] lg:w-[330px] h-auto  ml-4">
-                
-              
-              <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
-                <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/notion-avatar-1.png" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
+                  )
+                })}
+          
             
-            <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">6 hrs ago</p>
-            </div>
-            </div>
-          <Star  />
-          </div>
-              <div className="flex justify-center ">
-              <VideoPlayer 
-              thumbnailSrc="https://e1.pxfuel.com/desktop-wallpaper/182/494/desktop-wallpaper-pink-lofi-lo.jpg"
-              />
-              </div>
-              <CardTitle className="ml-3 mt-3  " >
-                Pom Lofi music
-              </CardTitle>
-              <CardDescription className="ml-3 mt-1 ">Music for asdjas asdjasds addasj asjds das dasd </CardDescription>
-            </Card>
-            <Card className="w-64 lg:w-[330px] h-auto  ml-4">
-                
-              
-              <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
-                <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/notion-avatar-1.png" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
             
-            <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">6 hrs ago</p>
-            </div>
-            </div>
-          <Star  />
-          </div>
-              <div className="flex justify-center ">
-              <VideoPlayer 
-              thumbnailSrc="https://e1.pxfuel.com/desktop-wallpaper/182/494/desktop-wallpaper-pink-lofi-lo.jpg"
-              />
-              </div>
-              <CardTitle className="ml-3 mt-3  " >
-                Pom Lofi music
-              </CardTitle>
-              <CardDescription className="ml-3 mt-1 ">Music for asdjas asdjasds addasj asjds das dasd </CardDescription>
-            </Card>
-            <Card className="w-64 lg:w-[330px] h-auto  ml-4">
-                
-              
-              <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
-                <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/notion-avatar-1.png" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
             
-            <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">6 hrs ago</p>
-            </div>
-            </div>
-          <Star  />
-          </div>
-              <div className="flex justify-center ">
-              <VideoPlayer 
-              thumbnailSrc="https://e1.pxfuel.com/desktop-wallpaper/182/494/desktop-wallpaper-pink-lofi-lo.jpg"
-              />
-              </div>
-              <CardTitle className="ml-3 mt-3  " >
-                Pom Lofi music
-              </CardTitle>
-              <CardDescription className="ml-3 mt-1 ">Music for asdjas asdjasds addasj asjds das dasd </CardDescription>
-            </Card>
-            <Card className="w-64 lg:w-[330px] h-auto  ml-4">
-                
-              
-              <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
-                <div className="flex items-center gap-2">
-            <Avatar>
-              <AvatarImage src="/notion-avatar-1.png" />
-              <AvatarFallback>OM</AvatarFallback>
-            </Avatar>
             
-            <div>
-              <p className="text-sm font-medium leading-none">Sofia Davis</p>
-              <p className="text-sm text-muted-foreground">6 hrs ago</p>
-            </div>
-            </div>
-          <Star  />
-          </div>
-              <div className="flex justify-center ">
-              <VideoPlayer 
-              thumbnailSrc="https://e1.pxfuel.com/desktop-wallpaper/182/494/desktop-wallpaper-pink-lofi-lo.jpg"
-              />
-              </div>
-              <CardTitle className="ml-3 mt-3  " >
-                Pom Lofi music
-              </CardTitle>
-              <CardDescription className="ml-3 mt-1 ">Music for asdjas asdjasds addasj asjds das dasd </CardDescription>
-            </Card>
           </div>
 
 

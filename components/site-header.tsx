@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
@@ -5,45 +6,90 @@ import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { MainNav } from "@/components/main-nav"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useSession, signOut } from "next-auth/react"
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar"
+import { DropdownMenu, 
+  DropdownMenuTrigger,
+   DropdownMenuContent,
+    DropdownMenuLabel,
+     DropdownMenuSeparator,
+      DropdownMenuGroup,
+      DropdownMenuItem,
+      
+    } from "./ui/dropdown-menu"
+import { LogOut, PlusCircle, User } from "lucide-react"
+import { Settings } from "lucide-react"
 
 export function SiteHeader() {
+
+  const session = useSession()
+  const imageUser = session.data?.user?.image
+  const userName = session.data?.user?.name
+  const userEmail = session.data?.user?.email
+
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <MainNav items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "sm",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.gitHub className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </div>
-            </Link>
-            <Link
-              href={siteConfig.links.twitter}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <div
-                className={buttonVariants({
-                  size: "sm",
-                  variant: "ghost",
-                })}
-              >
-                <Icons.twitter className="h-5 w-5 fill-current" />
-                <span className="sr-only">Twitter</span>
-              </div>
-            </Link>
+            
+            
             <ThemeToggle />
+            {session.status === "authenticated" && (
+
+            
+            <DropdownMenu 
+            >
+              
+              <DropdownMenuTrigger className="cursor-pointer" asChild>
+              
+                
+              
+                <Avatar>
+                <AvatarImage src={imageUser || ""} />
+              <AvatarFallback>OM</AvatarFallback>
+                </Avatar>
+              
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{userName}</p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {userEmail}
+            </p>
+          </div>
+        </DropdownMenuLabel>
+        {/* <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <User className="mr-2 h-4 w-4" />
+            <span>Profile</span>
+            
+          </DropdownMenuItem>
+          
+          <DropdownMenuItem>
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
+            
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            <span>New Team</span>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator /> */}
+        <DropdownMenuSeparator></DropdownMenuSeparator>
+        <DropdownMenuItem onClick={()=> signOut()} className="cursor-pointer">
+          <LogOut  className="mr-2 h-4 w-4" />
+          <span>Log out</span>
+          
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+            </DropdownMenu>
+            ) }
+           
           </nav>
         </div>
       </div>

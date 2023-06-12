@@ -12,11 +12,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useSession } from "next-auth/react"
 
 export default function IndexPage() {
+
+  const session = useSession()
+  console.log(session)
+  const imaje = session.data?.user?.image 
+
   return (
     <>
       <section className="flex justify-center md:items-center  max-w-7xl mx-auto mt-16 flex-col items-center px-7   ">
+        
       <h1 className="text-3xl text-center md:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tighter   text-black dark:text-white ">
           Your space for relaxation and concentration
           </h1>
