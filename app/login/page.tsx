@@ -14,9 +14,12 @@ import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { useAuthStore } from "@/store/store"
 
 export default function DemoCreateAccount() {
 
+
+  const { user, setUser } = useAuthStore();
 
   const session = useSession();
 
@@ -41,6 +44,8 @@ export default function DemoCreateAccount() {
     const email = e.target[0].value;
     const password = e.target[1].value;
 
+    const user = { _id: '', username: '', email: '', createdAt:"" };
+    
     // signIn("credentials", {
     //   email,
     //   password,
@@ -84,6 +89,7 @@ export default function DemoCreateAccount() {
         console.log(user); // Aquí se mostrará la información del usuario
          // Aquí se mostrará el token de autenticación
         // Realiza las operaciones necesarias con los datos del usuario y el token
+        setUser(user);
       })
       .catch((error) => {
         console.error(error);
@@ -96,7 +102,7 @@ export default function DemoCreateAccount() {
 
   return (
     <div className="max-w-md mx-auto">
-        
+        {user && <h2>welcome {user.username}, {user.email}</h2>}
     <Card>
       <div className="flex items-center justify-center gap-2 relative mr-12">
     <img className=" mt-6" src="/sculptureLogin.svg" width={190}  alt="login" />

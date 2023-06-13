@@ -19,13 +19,23 @@ import { DropdownMenu,
     } from "./ui/dropdown-menu"
 import { LogOut, PlusCircle, User } from "lucide-react"
 import { Settings } from "lucide-react"
+import { useAuthStore } from "@/store/store"
+import { useRouter } from "next/navigation"
 
 export function SiteHeader() {
 
   const session = useSession()
+  const router = useRouter();
+  const { user, setUser } = useAuthStore();
   const imageUser = session.data?.user?.image
   const userName = session.data?.user?.name
   const userEmail = session.data?.user?.email
+
+
+  const handleLogout = ()=>{
+    user? setUser(null) : signOut()
+    router.push("/");
+  }
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
@@ -36,7 +46,7 @@ export function SiteHeader() {
             
             
             <ThemeToggle />
-            {session.status === "authenticated" && (
+            {session.status === "authenticated" || user  &&  (
 
             
             <DropdownMenu 
@@ -48,16 +58,16 @@ export function SiteHeader() {
               
                 <Avatar>
                 <AvatarImage src={imageUser || ""} />
-              <AvatarFallback>OM</AvatarFallback>
+              <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
               
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{userName}</p>
+            <p className="text-sm font-medium leading-none">{userName || user.username}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {userEmail}
+              {userEmail || user.email }
             </p>
           </div>
         </DropdownMenuLabel>
@@ -81,7 +91,7 @@ export function SiteHeader() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator /> */}
         <DropdownMenuSeparator></DropdownMenuSeparator>
-        <DropdownMenuItem onClick={()=> signOut()} className="cursor-pointer">
+        <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
           <LogOut  className="mr-2 h-4 w-4" />
           <span>Log out</span>
           
