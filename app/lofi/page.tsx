@@ -204,7 +204,7 @@ export default function MusicPage() {
                             New Episodes
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Your favorite podcasts. Updated daily.
+                            Your favorite podcasts. Updated dailyyyy.
                           </p>
                         </div>
                       </div>

@@ -41,6 +41,14 @@ export function PodcastEmptyPlaceholder() {
                 <Label htmlFor="url">Podcast URL</Label>
                 <Input id="url" placeholder="https://example.com/feed.xml" />
               </div>
+              <div className="grid gap-2">
+                <Label htmlFor="Title">Title</Label>
+                <Input id="title" placeholder="Lofi Example" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Input id="description" placeholder="description example" />
+              </div>
             </div>
             <DialogFooter>
               <Button>Import Podcast</Button>

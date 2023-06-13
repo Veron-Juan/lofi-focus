@@ -36,15 +36,59 @@ export default function DemoCreateAccount() {
 
 
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit =  (e:any) => {
     e.preventDefault();
     const email = e.target[0].value;
     const password = e.target[1].value;
 
-    signIn("credentials", {
-      email,
-      password,
-    });
+    // signIn("credentials", {
+    //   email,
+    //   password,
+    // });
+
+    // try {
+    //   const res = await fetch("/api/auth/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email,
+    //       password,
+    //     }),
+    //   });
+    //   console.log("hereeee",res)
+    //   // res.status === 201 && router.push("/login?success=Account has been created");
+    // } catch (err:any) {
+    //   // setError(err);
+    //   console.log(err);
+    // }
+
+    fetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Credenciales inválidas');
+        }
+      })
+      .then((data) => {
+        const { user } = data;
+        // Aquí puedes acceder a los datos del usuario y al token de autenticación
+        console.log(user); // Aquí se mostrará la información del usuario
+         // Aquí se mostrará el token de autenticación
+        // Realiza las operaciones necesarias con los datos del usuario y el token
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   };
 
 
@@ -86,7 +130,7 @@ export default function DemoCreateAccount() {
             </span>
           </div>
         </div>
-        <form  className="grid gap-2">
+        <form onSubmit={handleSubmit}  className="grid gap-2">
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
           <Input id="email" type="email" placeholder="m@example.com" />

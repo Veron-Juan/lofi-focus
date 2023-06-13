@@ -32,7 +32,7 @@ export default function Register() {
       router?.push("/");
     }
 
-  const [error, setError] = useState(null);
+  
 
   
 
@@ -56,7 +56,7 @@ export default function Register() {
       });
       res.status === 201 && router.push("/login?success=Account has been created");
     } catch (err:any) {
-      setError(err);
+      // setError(err);
       console.log(err);
     }
   };
