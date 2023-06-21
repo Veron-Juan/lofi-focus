@@ -33,8 +33,8 @@ export function SiteHeader() {
 
 
   const handleLogout = ()=>{
-    user? setUser(null) : signOut()
-    router.push("/");
+    signOut()
+    // router.push("/");
   }
 
   

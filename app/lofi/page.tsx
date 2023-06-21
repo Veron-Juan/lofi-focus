@@ -26,6 +26,7 @@ import 'swiper/css';
 import Link from "next/link"
 
 
+
 export const metadata: Metadata = {
   title: "Music App",
   description: "Example music app using the components.",

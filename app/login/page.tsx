@@ -1,5 +1,10 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+import { useAuthStore } from "@/store/store"
+import { signIn, useSession } from "next-auth/react"
+import { Toaster, toast } from "sonner"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,174 +17,169 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
-import { signIn, useSession } from "next-auth/react"
-import { useRouter } from "next/navigation"
-import { useAuthStore } from "@/store/store"
-import { Toaster, toast } from 'sonner'
+import { FormEvent, useEffect, useState } from "react"
 
 export default function DemoCreateAccount() {
+  // const { user, setUser } = useAuthStore()
 
+  const session = useSession()
 
-  const { user, setUser } = useAuthStore();
+  const router = useRouter()
 
-  const session = useSession();
+  // if (session.status === "loading") {
+  //   return (
+  //     <div className="flex h-screen">
+  //       <div className="m-auto">
+  //         <div className="w-12 h-12 border-4 border-gray-300 rounded-full animate-spin"></div>
+  //       </div>
+  //     </div>
+  //   )
+  // }
 
-  const router = useRouter();
+  // if (session.status === "authenticated") {
+  //   router?.push("/")
+  // }
 
-  if (session.status === "loading") {
-      return <div className="flex h-screen">
-      <div className="m-auto">
-        <div className="w-12 h-12 border-4 border-gray-300 rounded-full animate-spin"></div>
-      </div>
-    </div>
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault()
+  //   const email = e.target[0].value
+  //   const password = e.target[1].value
+
+  //   const user = { _id: "", username: "", email: "", createdAt: "" }
+
+  //   const promise = () => new Promise((resolve) => setTimeout(resolve, 800))
+
+  //   fetch("/api/auth/login", {
+  //     method: "POST",
+  //     body: JSON.stringify({ email, password }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         toast.promise(promise, {
+  //           loading: "Loading...",
+  //           success: () => {
+  //             return ` toast has been added`
+  //           },
+  //           error: "Error",
+  //         })
+
+  //         return response.json()
+  //       } else {
+  //         throw new Error("Credenciales inválidas")
+  //       }
+  //     })
+  //     .then((data) => {
+  //       const { user, token } = data
+  //       // Aquí puedes acceder a los datos del usuario y al token de autenticación
+  //       // Aquí se mostrará la información del usuario
+  //       // Aquí se mostrará el token de autenticación
+  //       // Realiza las operaciones necesarias con los datos del usuario y el token
+  //       setUser(user)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //     })
+  // }
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Verificar si la sesión ha cambiado correctamente
+    if (session.data ) {
+      router.replace("/community");
     }
+  }, [session, router]);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    try{
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const res = await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      
+    });
+    console.log(res);
+    router.push("/")
+    } catch(error){
+      console.log(error)
+    }
+    
+
+
+    
+    
+
+    // if (res?.error) setError(res.error as string);
+
+    // if (res?.ok) return 
+    // router.push("/upload")
+    
+    
   
-  if (session.status === "authenticated") {
-      router?.push("/");
-    }
-
-
-
-  const handleSubmit =  (e:any) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-
-    const user = { _id: '', username: '', email: '', createdAt:"" };
-    
-    // signIn("credentials", {
-    //   email,
-    //   password,
-    // });
-
-    // try {
-    //   const res = await fetch("/api/auth/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       email,
-    //       password,
-    //     }),
-    //   });
-    //   console.log("hereeee",res)
-    //   // res.status === 201 && router.push("/login?success=Account has been created");
-    // } catch (err:any) {
-    //   // setError(err);
-    //   console.log(err);
-    // }
-
-    
-    
-const promise = () => new Promise((resolve) => setTimeout(resolve, 800));
-
-
-
-
-    fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => {
-        
-        if (response.ok) {
-          toast.promise(promise, {
-            loading: 'Loading...',
-            success: () => {
-              return ` toast has been added`;
-            },
-            error: 'Error',
-          });
-
-          
-
-          return response.json();
-          
-
-
-        } else {
-          throw new Error('Credenciales inválidas');
-        }
-      })
-      .then((data) => {
-        
-        const { user, token } = data;
-        // Aquí puedes acceder a los datos del usuario y al token de autenticación
-        // Aquí se mostrará la información del usuario
-         // Aquí se mostrará el token de autenticación
-        // Realiza las operaciones necesarias con los datos del usuario y el token
-        setUser(user);
-        
-        
-        
-       
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
   };
-
-
-
 
   return (
     <div className="max-w-md mx-auto">
-      <Toaster position="top-right" />
-        
-    <Card>
-      <div className="flex items-center justify-center gap-2 relative mr-12">
-    <img className=" mt-6" src="/sculptureLogin.svg" width={190}  alt="login" />
-    <h2 className="font-bold text-xl absolute right-[50px]">Lofi Focus</h2>
+      
 
-      </div>
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Create an account</CardTitle>
-        <CardDescription>
-          Enter your email below to create your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button onClick={()=> signIn("google")} variant="outline">
-            
-            Google
-          </Button>
+      <Card>
+        <div className="flex items-center justify-center gap-2 relative mr-12">
+          <img
+            className=" mt-6"
+            src="/sculptureLogin.svg"
+            width={190}
+            alt="login"
+          />
+          <h2 className="font-bold text-xl absolute right-[50px]">
+            Lofi Focus
+          </h2>
         </div>
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">Create an account</CardTitle>
+          <CardDescription>
+            Enter your email below to create your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid grid-cols-2 gap-6">
+            <Button onClick={() => signIn("github")}  variant="outline">
+              <Icons.gitHub className="mr-2 h-4 w-4" />
+              Github
+            </Button>
+            <Button onClick={() => signIn("google")} variant="outline">
+              Google
+            </Button>
           </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              Or continue with
-            </span>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
           </div>
-        </div>
-        <form onSubmit={handleSubmit}  className="grid gap-2">
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" />
-        </div>
-        <Button className="w-full mt-5">Log in</Button>
-        </form>
-      </CardContent>
-      {/* <CardFooter>
+          <form onSubmit={handleSubmit} className="grid gap-2">
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" type="email" name="email" placeholder="m@example.com" />
+            </div>
+            <div className="grid gap-2">
+              <Label  htmlFor="password">Password</Label>
+              <Input name="password" id="password" type="password" />
+            </div>
+            <Button className="w-full mt-5">Log in</Button>
+          </form>
+        </CardContent>
+        {/* <CardFooter>
         <Button className="w-full">Log in</Button>
       </CardFooter> */}
-    </Card>
+      </Card>
     </div>
   )
 }

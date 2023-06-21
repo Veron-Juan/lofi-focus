@@ -1,8 +1,8 @@
-"use client"
+
 
 import Image from "next/image"
 import Link from "next/link"
-import { Music, TimerReset, Users } from "lucide-react"
+import { Music, PlusCircle, TimerReset, Users } from "lucide-react"
 
 import { siteConfig } from "@/config/site"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -13,13 +13,14 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { useSession } from "next-auth/react"
+import { getServerSession } from "next-auth";
 import { useAuthStore } from "@/store/store"
 
-export default function IndexPage() {
+export default async function IndexPage() {
   
-  const session = useSession()
+  const session = await getServerSession();
+  
   console.log(session)
-  
 
   return (
     <>
@@ -56,12 +57,20 @@ export default function IndexPage() {
             >
               Get Started
             </Link>
-            <Link
+            {!session ? <Link
               href="/login"
               className={buttonVariants({ variant: "outline", size: "default" })}
             >
               Login
-            </Link>
+            </Link> : 
+              <div className="">
+              <Link href="community" className={buttonVariants({ variant: "outline", size: "default" })}>
+                <PlusCircle className="mr-2  h-4 w-4" />
+                Add music
+              </Link>
+            </div>
+            }
+            
           </div>
         </div>
         <div className="hidden md:block justify-start   mt-4">

@@ -16,12 +16,16 @@ import {
   
   import { Playlist } from "../data/playlists"
 import { Card } from "@/components/ui/card"
+import { useFavoriteStore } from "@/store/store"
   
   interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     playlists: Playlist[]
   }
   
   export function Sidebar({ className, playlists }: SidebarProps) {
+    
+    const favorites = useFavoriteStore((state) => state.favorites);
+    
     return (
       <div className={cn("pb-12", className)}>
         <div className="space-y-4 py-4">
@@ -54,6 +58,19 @@ import { Card } from "@/components/ui/card"
             </h2>
 
 
+            {favorites.map((fav)=> (
+                <div className="flex items-center gap-3 space-y-1 ml-2 mb-3 cursor-pointer hover:opacity-70">
+                <Card >
+                  <img className="rounded-md" src={fav.cover} width={42} />
+                </Card>
+                <div className="space-y-1 text-sm">
+          <h3 className="font-medium leading-none">{fav.name}</h3>
+          <p className="text-xs text-muted-foreground">{fav.artist}</p>
+        </div>
+              </div>
+
+                ))}
+
             
 
             <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
@@ -65,33 +82,7 @@ import { Card } from "@/components/ui/card"
         <p className="text-xs text-muted-foreground">asdasda</p>
       </div>
             </div>
-            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
-              <Card >
-                <img className="rounded-md" src="/community.png" width={42} />
-              </Card>
-              <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
-        <p className="text-xs text-muted-foreground">asdasda</p>
-      </div>
-            </div>
-            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
-              <Card >
-                <img className="rounded-md" src="/sculptureLogin.svg" width={42} />
-              </Card>
-              <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
-        <p className="text-xs text-muted-foreground">asdasda</p>
-      </div>
-            </div>
-            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
-              <Card >
-                <img className="rounded-md" src="/sculpturemusicbg.png" width={42} />
-              </Card>
-              <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
-        <p className="text-xs text-muted-foreground">asdasda</p>
-      </div>
-            </div>
+            
             {/* <div className="space-y-1">
               <Button variant="ghost" size="sm" className="w-full justify-start">
                 <ListMusic className="mr-2 h-4 w-4" />
