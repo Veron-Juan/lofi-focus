@@ -7,8 +7,11 @@ import {
     Music2,
     PlayCircle,
     Radio,
+    PlusCircle ,
     User,
   } from "lucide-react"
+
+ 
   
   import { cn } from "@/lib/utils"
   import { Button } from "@/components/ui/button"
@@ -57,8 +60,20 @@ import { useFavoriteStore } from "@/store/store"
               Favorites
             </h2>
 
+            
+            {
+            favorites.length === 0 ? 
+            <div className="flex items-center gap-2  ml-2   ">
+              <div className=" ">
+              <PlusCircle width={20} />
 
-            {favorites.map((fav)=> (
+              </div>
+
+              <h4 className=" text-sm font-semibold">No favorites added</h4>
+            </div>
+            :
+            
+            favorites.map((fav)=> (
                 <div className="flex items-center gap-3 space-y-1 ml-2 mb-3 cursor-pointer hover:opacity-70">
                 <Card >
                   <img className="rounded-md" src={fav.cover} width={42} />
@@ -73,15 +88,7 @@ import { useFavoriteStore } from "@/store/store"
 
             
 
-            <div className="flex items-center gap-3 space-y-1 ml-2 mb-3">
-              <Card >
-                <img className="rounded-md" src="/pomodorosculpture.png" width={42} />
-              </Card>
-              <div className="space-y-1 text-sm">
-        <h3 className="font-medium leading-none"> Lofi studyngs</h3>
-        <p className="text-xs text-muted-foreground">asdasda</p>
-      </div>
-            </div>
+            
             
             {/* <div className="space-y-1">
               <Button variant="ghost" size="sm" className="w-full justify-start">

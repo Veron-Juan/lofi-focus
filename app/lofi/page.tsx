@@ -1,4 +1,5 @@
 "use client"
+
 import { Metadata } from "next"
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
@@ -14,18 +15,20 @@ import { playlists } from "./data/playlists"
 import "./styles.css"
 import Image from "next/image"
 import { PlusCircle } from "lucide-react"
+import SwiperCore, { Navigation, Pagination } from "swiper"
+import { Swiper, SwiperSlide } from "swiper/react"
 
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Button } from "@/components/ui/button"
-import VideoPlayer from "./components/VideoPlayer"
 import { Skeleton } from "@/components/ui/skeleton"
+
 import { CardMenu } from "./components/CardMenu"
-
-import SwiperCore, { Navigation, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import VideoPlayer from "./components/VideoPlayer"
+import "swiper/css"
 import Link from "next/link"
+import { useFavoriteStore } from "@/store/store"
 
-
+import LoaderPlayer from "./components/LoaderPlayer"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -44,10 +47,12 @@ export default function MusicPage() {
       slidesPerView: 3,
       spaceBetween: 30,
     },
-  };
+  }
+
+  const favorites = useFavoriteStore((state) => state.favorites)
+
   return (
     <>
-      
       <div className="">
         <div className="border-t  ">
           <div className="bg-background max-w-[1470px]">
@@ -62,10 +67,8 @@ export default function MusicPage() {
                           Music
                         </TabsTrigger>
                         <TabsTrigger value="podcasts">Pomodoro</TabsTrigger>
-                        
-                        <TabsTrigger value="favorites" >
-                          Favorites
-                        </TabsTrigger>
+
+                        <TabsTrigger value="favorites">Favorites</TabsTrigger>
                       </TabsList>
                       <div className="">
                         <Button className="">
@@ -78,8 +81,6 @@ export default function MusicPage() {
                       value="music"
                       className="border-none p-0 outline-none"
                     >
-                      
-
                       <div className="flex items-center justify-between">
                         <div className="space-y-1">
                           <h2 className="text-2xl font-semibold tracking-tight">
@@ -90,17 +91,12 @@ export default function MusicPage() {
                           </p>
                         </div>
                       </div>
-                      
-                      
-
 
                       <Separator className="my-4" />
                       <div className="relative">
-                        
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4 ">
                             {madeForYouAlbums.map((album) => (
-                              
                               <AlbumArtwork
                                 key={album.name}
                                 album={album}
@@ -109,32 +105,12 @@ export default function MusicPage() {
                                 width={150}
                                 height={150}
                               />
-                              
-                              
                             ))}
                           </div>
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
-                        
                       </div>
-                      {/* <div className="relative">
-                        <ScrollArea>
-                          <div className="flex space-x-4 pb-4">
-                            {listenNowAlbums.map((album) => (
-                              <AlbumArtwork
-                                key={album.name}
-                                album={album}
-                                className="w-[230px]  "
-                                aspectRatio="portrait"
-                                width={200}
-                                height={100}
-                                
-                              />
-                            ))}
-                          </div>
-                          <ScrollBar orientation="horizontal" />
-                        </ScrollArea>
-                      </div> */}
+
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
                           Made for You
@@ -162,7 +138,6 @@ export default function MusicPage() {
                         </ScrollArea>
                       </div>
 
-
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
                           Community
@@ -189,11 +164,6 @@ export default function MusicPage() {
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
                       </div>
-
-
-
-
-
                     </TabsContent>
                     <TabsContent
                       value="podcasts"
@@ -212,9 +182,12 @@ export default function MusicPage() {
                       <Separator className="my-4" />
                       <PodcastEmptyPlaceholder />
                     </TabsContent>
-                    
-                    <TabsContent value="favorites" className="h-full flex-col border-none p-0 data-[state=active]:flex">
-                    <div className="flex items-center justify-between">
+
+                    <TabsContent
+                      value="favorites"
+                      className="border-none p-0 outline-none"
+                    >
+                      <div className="flex items-center justify-between">
                         <div className="space-y-1">
                           <h2 className="text-2xl font-semibold tracking-tight">
                             Favorites
@@ -225,20 +198,47 @@ export default function MusicPage() {
                         </div>
                       </div>
                       <Separator className="my-4" />
-                      
-                      <div className="flex h-[450px] shrink-0 items-center justify-center rounded-md border border-dashed">
-      <div className="mx-auto flex max-w-[420px] flex-col items-center justify-center text-center">
-        
-        <h3 className="mt-4 text-lg font-semibold">No episodes added</h3>
+
+                      <div className="flex h-auto shrink-0 items-center  justify-center rounded-md border border-dashed  ">
+                        <div className=" overflow-auto ">
+                          <div className="my-5 flex justify-center">
+                            <LoaderPlayer />
+                          </div>
+                              
+                          <div className="relative">
+                            <ScrollArea>
+                              <div className="flex space-x-4 pb-4">
+                                {favorites.map((fav) => (
+                                  <CardMenu
+                                    key={fav.cover}
+                                    album={fav}
+                                    className="w-[150px]"
+                                    aspectRatio="square"
+                                    width={150}
+                                    height={150}
+                                  />
+                                ))}
+                                {/* <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
+                                <div className="w-[150px] h-[150px] bg-slate-600"></div> */}
+                              </div>
+                              <ScrollBar orientation="horizontal" />
+                            </ScrollArea>
+                          </div>
+                          
+
+                          {/* <h3 className="mt-4 text-lg font-semibold">No episodes added</h3>
         <p className="mb-4 mt-2 text-sm text-muted-foreground">
           You have not added any podcasts. Add one below.
         </p>
-        <Button>Add favorites</Button>
-        </div>
-        </div>
+        <Button>Add favorites</Button> */}
+                        </div>
+                      </div>
                     </TabsContent>
-
-
                   </Tabs>
                 </div>
               </div>

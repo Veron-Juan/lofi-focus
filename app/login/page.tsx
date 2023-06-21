@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
 import { FormEvent, useEffect, useState } from "react"
+import Spinner from "../lofi/components/Spinner"
 
 export default function DemoCreateAccount() {
   // const { user, setUser } = useAuthStore()
@@ -26,71 +27,22 @@ export default function DemoCreateAccount() {
 
   const router = useRouter()
 
-  // if (session.status === "loading") {
-  //   return (
-  //     <div className="flex h-screen">
-  //       <div className="m-auto">
-  //         <div className="w-12 h-12 border-4 border-gray-300 rounded-full animate-spin"></div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
+  
+  const sesionStatus = ()=> {
 
-  // if (session.status === "authenticated") {
-  //   router?.push("/")
-  // }
-
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault()
-  //   const email = e.target[0].value
-  //   const password = e.target[1].value
-
-  //   const user = { _id: "", username: "", email: "", createdAt: "" }
-
-  //   const promise = () => new Promise((resolve) => setTimeout(resolve, 800))
-
-  //   fetch("/api/auth/login", {
-  //     method: "POST",
-  //     body: JSON.stringify({ email, password }),
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   })
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         toast.promise(promise, {
-  //           loading: "Loading...",
-  //           success: () => {
-  //             return ` toast has been added`
-  //           },
-  //           error: "Error",
-  //         })
-
-  //         return response.json()
-  //       } else {
-  //         throw new Error("Credenciales inválidas")
-  //       }
-  //     })
-  //     .then((data) => {
-  //       const { user, token } = data
-  //       // Aquí puedes acceder a los datos del usuario y al token de autenticación
-  //       // Aquí se mostrará la información del usuario
-  //       // Aquí se mostrará el token de autenticación
-  //       // Realiza las operaciones necesarias con los datos del usuario y el token
-  //       setUser(user)
-  //     })
-  //     .catch((error) => {
-  //       console.error(error)
-  //     })
-  // }
-
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    // Verificar si la sesión ha cambiado correctamente
-    if (session.data ) {
+    
+    if (session.status === "authenticated" ) {
       router.replace("/community");
     }
+  }
+  
+
+  useEffect(() => {
+    
+    sesionStatus()
+
+    
+
   }, [session, router]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -101,9 +53,8 @@ export default function DemoCreateAccount() {
       email: formData.get("email"),
       password: formData.get("password"),
       
+      
     });
-    console.log(res);
-    router.push("/")
     } catch(error){
       console.log(error)
     }
@@ -113,10 +64,6 @@ export default function DemoCreateAccount() {
     
     
 
-    // if (res?.error) setError(res.error as string);
-
-    // if (res?.ok) return 
-    // router.push("/upload")
     
     
   
@@ -125,8 +72,12 @@ export default function DemoCreateAccount() {
   return (
     <div className="max-w-md mx-auto">
       
+      {session.status === 'loading' ? (<Spinner/>) : 
+      
 
       <Card>
+        
+
         <div className="flex items-center justify-center gap-2 relative mr-12">
           <img
             className=" mt-6"
@@ -180,6 +131,7 @@ export default function DemoCreateAccount() {
         <Button className="w-full">Log in</Button>
       </CardFooter> */}
       </Card>
+      }
     </div>
   )
 }
