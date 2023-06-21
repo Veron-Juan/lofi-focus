@@ -15,6 +15,7 @@ import { Icons } from "@/components/icons"
 import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/store"
+import { Toaster, toast } from 'sonner'
 
 export default function DemoCreateAccount() {
 
@@ -69,6 +70,13 @@ export default function DemoCreateAccount() {
     //   console.log(err);
     // }
 
+    
+    
+const promise = () => new Promise((resolve) => setTimeout(resolve, 800));
+
+
+
+
     fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
@@ -77,19 +85,38 @@ export default function DemoCreateAccount() {
       },
     })
       .then((response) => {
+        
         if (response.ok) {
+          toast.promise(promise, {
+            loading: 'Loading...',
+            success: () => {
+              return ` toast has been added`;
+            },
+            error: 'Error',
+          });
+
+          
+
           return response.json();
+          
+
+
         } else {
           throw new Error('Credenciales inválidas');
         }
       })
       .then((data) => {
-        const { user } = data;
+        
+        const { user, token } = data;
         // Aquí puedes acceder a los datos del usuario y al token de autenticación
-        console.log(user); // Aquí se mostrará la información del usuario
+        // Aquí se mostrará la información del usuario
          // Aquí se mostrará el token de autenticación
         // Realiza las operaciones necesarias con los datos del usuario y el token
         setUser(user);
+        
+        
+        
+       
       })
       .catch((error) => {
         console.error(error);
@@ -102,7 +129,8 @@ export default function DemoCreateAccount() {
 
   return (
     <div className="max-w-md mx-auto">
-        {user && <h2>welcome {user.username}, {user.email}</h2>}
+      <Toaster position="top-right" />
+        
     <Card>
       <div className="flex items-center justify-center gap-2 relative mr-12">
     <img className=" mt-6" src="/sculptureLogin.svg" width={190}  alt="login" />

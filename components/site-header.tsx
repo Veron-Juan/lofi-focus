@@ -37,6 +37,8 @@ export function SiteHeader() {
     router.push("/");
   }
 
+  
+  
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
@@ -46,7 +48,10 @@ export function SiteHeader() {
             
             
             <ThemeToggle />
-            {session.status === "authenticated" || user  &&  (
+
+            
+            
+            {session.status === "authenticated" || user ?  (
 
             
             <DropdownMenu 
@@ -57,17 +62,17 @@ export function SiteHeader() {
                 
               
                 <Avatar>
-                <AvatarImage src={imageUser || ""} />
-              <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+                <img src={imageUser || "" } />
+              <AvatarFallback>{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
               
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{userName || user.username}</p>
+            <p className="text-sm font-medium leading-none">{userName || user?.username}</p>
             <p className="text-xs leading-none text-muted-foreground">
-              {userEmail || user.email }
+              {userEmail || user?.email }
             </p>
           </div>
         </DropdownMenuLabel>
@@ -98,7 +103,7 @@ export function SiteHeader() {
         </DropdownMenuItem>
       </DropdownMenuContent>
             </DropdownMenu>
-            ) }
+            ) : null }
            
           </nav>
         </div>

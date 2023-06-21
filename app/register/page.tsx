@@ -14,8 +14,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Icons } from "@/components/icons"
-import { useState } from "react";
-import { useSession } from "next-auth/react";
+import { FormEvent, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import axios, { AxiosError } from "axios";
 
 export default function Register() {
 
@@ -24,40 +25,50 @@ export default function Register() {
 
   const router = useRouter();
 
-  if (session.status === "loading") {
-      return <p>Loading...</p>;
-    }
+  // if (session.status === "loading") {
+  //     return <p>Loading...</p>;
+  //   }
   
-  if (session.status === "authenticated") {
-      router?.push("/");
-    }
+  // if (session.status === "authenticated") {
+  //     router?.push("/");
+  //   }
 
   
+  const [error, setError] = useState();
+    
 
-  
-
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const username = e.target[0].value;
-    const email = e.target[1].value;
-    const password = e.target[2].value;
-
+   
+    
+    // const promise = () => new Promise((resolve) => setTimeout(resolve, 500));
+    
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
+      const formData = new FormData(e.currentTarget);
+      const signupResponse = await axios.post("/api/auth/signup", {
+        email: formData.get("email"),
+        password: formData.get("password"),
+        username: formData.get("username"),
       });
-      res.status === 201 && router.push("/login?success=Account has been created");
-    } catch (err:any) {
-      // setError(err);
-      console.log(err);
+      console.log(signupResponse);
+      //respuesta de nextauth
+      const res = await signIn("credentials", {
+        email: signupResponse.data.email,
+        password: formData.get("password"),
+        redirect: false,
+      });
+
+      if (res?.ok) return router.push("/login");
+      
+      // res.status === 201 && router.push("/login?success=Account has been created")  ;
+      
+    } catch (error) {
+      console.log(error);
+      if (error instanceof AxiosError) {
+        const errorMessage = error.response?.data.message;
+        setError(errorMessage);
+      }
+    
     }
   };
 
@@ -67,6 +78,7 @@ export default function Register() {
   return (
     <div className="max-w-md mx-auto">
         
+        {error && <div className="bg-red-500 text-white p-2 mb-2 rounded-md mt-3">{error}</div>}
     <Card>
       
       <CardHeader className="space-y-1">
@@ -99,28 +111,26 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="grid gap-2">
         <div className="grid gap-2">
           <Label htmlFor="username">Username</Label>
-          <Input id="username" type="username" placeholder="@example" />
+          <Input id="username" type="username" name="username" placeholder="@example" />
         </div>
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="m@example.com" />
+          <Input id="email" name="email" type="email" placeholder="m@example.com" />
         </div>
         <div className="grid gap-2">
             
           <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" placeholder="*********" />
+          <Input id="password" name="password" type="password" placeholder="*********" />
         </div>
 
         <Button className="w-full mt-5">Create account</Button>
         
         </form>
 
-      {/* <CardFooter>
-        <Button className="w-full">Create account</Button>
-      </CardFooter> */}
-
+      
       </CardContent>
     </Card>
+    
     </div>
   )
 }

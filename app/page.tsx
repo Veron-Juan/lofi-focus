@@ -57,7 +57,7 @@ export default function IndexPage() {
               Get Started
             </Link>
             <Link
-              href="/"
+              href="/login"
               className={buttonVariants({ variant: "outline", size: "default" })}
             >
               Login
