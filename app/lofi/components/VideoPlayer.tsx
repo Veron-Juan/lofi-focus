@@ -7,16 +7,17 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 interface VideoPlayerProps  {
   thumbnailSrc: string;
+  url:string;
   aspectRatio?: "portrait" | "square"
   width?: number
   height?: number
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc}) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc, url}) => {
   return (
     <ReactPlayer
-      light={<img className='h-full object-cover transition-all hover:scale-105 '   src={thumbnailSrc} alt='Thumbnail'/>}
-      url="https://www.youtube.com/watch?v=i43tkaTXtwI"
+      light={<img className='h-full object-cover transition-all hover:scale-105 rounded-lg '   src={thumbnailSrc} alt='Thumbnail'/>}
+      url={url}
       fallback={<LoaderPlayer/>}
       controls
       

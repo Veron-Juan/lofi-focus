@@ -13,7 +13,7 @@ import { Sidebar } from "./components/sidebar"
 import { listenNowAlbums, madeForYouAlbums } from "./data/albums"
 import { playlists } from "./data/playlists"
 import "./styles.css"
-import Image from "next/image"
+
 import { PlusCircle } from "lucide-react"
 import SwiperCore, { Navigation, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
@@ -29,6 +29,7 @@ import Link from "next/link"
 import { useFavoriteStore } from "@/store/store"
 
 import LoaderPlayer from "./components/LoaderPlayer"
+import { MouseEventHandler, useState } from "react"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -36,24 +37,22 @@ export const metadata: Metadata = {
 }
 
 export default function MusicPage() {
-  const breakpoints = {
-    // Configuración para pantallas mayores o iguales a 768px
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    // Configuración para pantallas mayores o iguales a 1024px
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-  }
+  
 
-  const favorites = useFavoriteStore((state) => state.favorites)
+  const favorites = useFavoriteStore((state) => state.favorites);
+
+  const [selectFav, setSelectFav] = useState("")
+  const [selectImgFav, setselectImgFav] = useState("")
+
+  const handleFav = (url:string, image:string) => {
+    setSelectFav(url)
+    setselectImgFav(image)
+  }
 
   return (
     <>
       <div className="">
+        
         <div className="border-t  ">
           <div className="bg-background max-w-[1470px]">
             <div className="grid grid-cols-2 lg:grid-cols-5  ">
@@ -113,7 +112,7 @@ export default function MusicPage() {
 
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
-                          Made for You
+                          Relax and Study
                         </h2>
                         <p className="text-sm text-muted-foreground">
                           Your personal playlists. Updated daily.
@@ -123,7 +122,7 @@ export default function MusicPage() {
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4">
-                            {madeForYouAlbums.map((album) => (
+                            {listenNowAlbums.map((album) => (
                               <CardMenu
                                 key={album.name}
                                 album={album}
@@ -193,7 +192,7 @@ export default function MusicPage() {
                             Favorites
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                            Your favorite lofi music. Updated daily.
+                          Here you can listen to your favorite lists.
                           </p>
                         </div>
                       </div>
@@ -202,7 +201,20 @@ export default function MusicPage() {
                       <div className="flex h-auto shrink-0 items-center  justify-center rounded-md border border-dashed  ">
                         <div className=" overflow-auto ">
                           <div className="my-5 flex justify-center">
-                            <LoaderPlayer />
+                            {favorites.length === 0 && 
+                            <div className="flex flex-col">
+                            <h3 className="mt-4 text-lg font-semibold text-center">No favorites added</h3>
+                            <p className="mb-4 mt-2 text-sm text-muted-foreground">
+                              You have not added any favorite. 
+                            </p>
+                            </div>
+                            }
+                            {!selectFav || favorites.length === 0  ? null :  
+                            <VideoPlayer
+                            url={selectFav}
+                            thumbnailSrc={selectImgFav}
+                            />
+                          }
                           </div>
                               
                           <div className="relative">
@@ -211,20 +223,16 @@ export default function MusicPage() {
                                 {favorites.map((fav) => (
                                   <CardMenu
                                     key={fav.cover}
+                                    
                                     album={fav}
                                     className="w-[150px]"
                                     aspectRatio="square"
                                     width={150}
                                     height={150}
+                                    onClick={() => handleFav(fav.url, fav.cover )}
                                   />
                                 ))}
-                                {/* <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div>
-                                <div className="w-[150px] h-[150px] bg-slate-600"></div> */}
+                                
                               </div>
                               <ScrollBar orientation="horizontal" />
                             </ScrollArea>

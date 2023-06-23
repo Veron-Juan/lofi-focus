@@ -31,6 +31,7 @@ export function CardMenu({
   width,
   height,
   className,
+  
   ...props
 }: AlbumArtworkProps) {
   return (

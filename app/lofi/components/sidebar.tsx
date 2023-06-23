@@ -8,6 +8,7 @@ import {
     PlayCircle,
     Radio,
     PlusCircle ,
+    Trash2,
     User,
   } from "lucide-react"
 
@@ -20,14 +21,30 @@ import {
   import { Playlist } from "../data/playlists"
 import { Card } from "@/components/ui/card"
 import { useFavoriteStore } from "@/store/store"
+import { useState } from "react"
   
   interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     playlists: Playlist[]
   }
   
   export function Sidebar({ className, playlists }: SidebarProps) {
+
+   
     
     const favorites = useFavoriteStore((state) => state.favorites);
+
+    
+      const favoriteStore = useFavoriteStore();
+    
+      
+    
+    const handleRemoveFavorite = (id:any) => {
+      favoriteStore.removeFavorite(id);
+    }
+    
+
+
+   
     
     return (
       <div className={cn("pb-12", className)}>
@@ -74,15 +91,22 @@ import { useFavoriteStore } from "@/store/store"
             :
             
             favorites.map((fav)=> (
-                <div className="flex items-center gap-3 space-y-1 ml-2 mb-3 cursor-pointer hover:opacity-70">
-                <Card >
+              
+              <div className="relative ml-2 mb-3 cursor-pointer flex group hover:opacity-75 hover:bg-inherit">
+              <div className="flex items-center gap-3 space-y-1">
+                <Card>
                   <img className="rounded-md" src={fav.cover} width={42} />
                 </Card>
                 <div className="space-y-1 text-sm">
-          <h3 className="font-medium leading-none">{fav.name}</h3>
-          <p className="text-xs text-muted-foreground">{fav.artist}</p>
-        </div>
+                  <h3 className="font-medium leading-none">{fav.name}</h3>
+                  <p className="text-xs text-muted-foreground">{fav.artist}</p>
+                </div>
               </div>
+              <span className="absolute right-1 bottom-2 opacity-0 group-hover:opacity-100 " onClick={() => handleRemoveFavorite(fav._id)} >
+                <Trash2 width={18} />
+              </span>
+            </div>
+              
 
                 ))}
 

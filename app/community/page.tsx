@@ -1,4 +1,3 @@
-"use client"
 
 import { Metadata } from "next"
 import { PlusCircle, Star } from "lucide-react"
@@ -9,12 +8,30 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { CardMenu } from "../lofi/components/CardMenu"
 import VideoPlayer from "../lofi/components/VideoPlayer"
-import { AlbumArtwork } from "../lofi/components/album-artwork"
-import { madeForYouAlbums } from "../lofi/data/albums"
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useEffect } from "react"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Skeleton } from "@/components/ui/skeleton"
+import LoaderPlayer from "../lofi/components/LoaderPlayer"
+import { cache, useState } from "react"
+import next from "next/types"
+import Link from "next/link"
+
+
+
+
+
 
 
 
@@ -26,8 +43,15 @@ import { useEffect } from "react"
 
 export default async function CommunityPage() {
 
+  
+  
+  
+  
+  
+
   async function getData() {
-    const res = await fetch("http://localhost:3000/api/posts") 
+    
+    const res = await fetch("http://localhost:3000/api/posts", {cache: "no-store",}  ) 
   
     if (!res.ok) {
       throw new Error("Failed to fetch data");
@@ -38,9 +62,9 @@ export default async function CommunityPage() {
   
   }
 
-
-
   const data = await getData();
+
+  
   
 
   
@@ -52,6 +76,9 @@ export default async function CommunityPage() {
     <div className="border-t   ">
       <div className="bg-background   ">
         <div className=" max-w-[1300px] mx-auto ">
+        
+
+          
          
           <div className=" col-span-3 lg:col-span-4   ">
             <div className="h-full px-4 py-6 lg:px-8 ">
@@ -62,10 +89,45 @@ export default async function CommunityPage() {
                   </h1>
 
                   <div className="">
-                    <Button className="">
-                      <PlusCircle className="mr-2  h-4 w-4" />
-                      Add music
-                    </Button>
+                    
+                    <Dialog>
+          <DialogTrigger>
+            <Link href="/upload" >
+            <PlusCircle className="mr-2  h-4 w-4" />
+            Add music
+            </Link>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add music</DialogTitle>
+              <DialogDescription>
+                Copy and paste the music lofi feed URL to import.
+              </DialogDescription>
+            </DialogHeader>
+            <form  >
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <Label htmlFor="link">Video URL</Label>
+                <Input id="link" name="link" placeholder="https://example.com/feed.xml" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="Title">Title</Label>
+                <Input id="title" name="title" placeholder="Lofi Example" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <Input id="description" name="description" placeholder="description example" />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button>Import Music</Button>
+            </DialogFooter>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+
+
                   </div>
                 </div>
                 <TabsContent
@@ -122,7 +184,8 @@ export default async function CommunityPage() {
           </div>
               <div className="flex justify-center ">
               <VideoPlayer 
-              thumbnailSrc="https://e1.pxfuel.com/desktop-wallpaper/182/494/desktop-wallpaper-pink-lofi-lo.jpg"
+              url={i.link}
+              thumbnailSrc="/lofimusicsection.png"
               />
               </div>
               <CardTitle className="ml-3 mt-3  " >

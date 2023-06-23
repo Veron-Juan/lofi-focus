@@ -22,16 +22,27 @@ type FavoriteItem = {
     name: string
     artist: string
     cover: string
+    url: string
+    _id:string
 };
 
 type FavoriteStore = {
   favorites: FavoriteItem[];
+  favoriteIds: string[];
   addFavorite: (item: FavoriteItem) => void;
   setFavorites: (favorites: FavoriteItem[]) => void;
+  removeFavorite: (id: string) => void;
+  
 };
 
 export const useFavoriteStore = create<FavoriteStore>((set) => ({
   favorites: [],
+  favoriteIds: [],
   addFavorite: (item) => set((state) => ({ favorites: [...state.favorites, item] })),
   setFavorites: (favorites) => set({ favorites }),
+  removeFavorite: (id) =>
+    set((state) => ({
+      favorites: state.favorites.filter((favorite) => favorite._id !== id),
+      favoriteIds: state.favoriteIds.filter((favoriteId) => favoriteId !== id), // Eliminar el identificador único del favorito eliminado
+    })),
 }));

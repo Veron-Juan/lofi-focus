@@ -2,71 +2,105 @@ export interface Album {
     name: string
     artist: string
     cover: string
+    url:string
+    _id:string
+    
   }
   
   export const listenNowAlbums: Album[] = [
-    {
+    { 
+      _id:"1",
       name: "React Rendezvous",
       artist: "Ethan Byte",
       cover:
-        "https://cdnb.artstation.com/p/assets/images/images/031/504/411/large/remart-perez-img-20201027-234758-512.jpg?1603816317",
+        "https://i.ytimg.com/vi/vC4dLeqnvAw/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+         
     },
     {
-      name: "Async Awakenings",
-      artist: "Nina Netcode",
+      _id:"2",
+      name: "Study music ",
+      artist: "Little Soul",
       cover:
-        "https://cdnb.artstation.com/p/assets/images/images/031/504/411/large/remart-perez-img-20201027-234758-512.jpg?1603816317",
+        "https://i.ytimg.com/vi/lLmFehmW_KQ/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=lLmFehmW_KQ",
+         
     },
     {
-      name: "The Art of Reusability",
-      artist: "Lena Logic",
+      _id:"3",
+      name: "chill beats to relax/study to",
+      artist: "HITO",
       cover:
-        "https://musicfeeds.com.au/wp-content/uploads/sites/7/simpsonwave-sunday-school-video-source-youtube-user-Lucien-Hughes.jpg",
+        "https://i.ytimg.com/vi/3C_KO2Fmqes/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=3C_KO2Fmqes",
+         
     },
     {
-      name: "Stateful Symphony",
-      artist: "Beth Binary",
+      _id:"4",
+      name: "japanese night cafe vibes",
+      artist: "Chill with Taiki",
       cover:
-        "https://cdnb.artstation.com/p/assets/images/images/031/504/411/large/remart-perez-img-20201027-234758-512.jpg?1603816317",
+        "https://i.ytimg.com/vi/9FvvbVI5rYA/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+         
     },
   ]
   
   export const madeForYouAlbums: Album[] = [
     {
-      name: "Thinking Components",
-      artist: "Lena Logic",
+      _id:"5",
+      name: "Lofi Girl",
+      artist: "Lofi Girl",
       cover:
-"https://e0.pxfuel.com/wallpapers/844/21/desktop-wallpaper-synthwave-girl-r-lofigirl-lofi-study.jpg"    },
+"https://e0.pxfuel.com/wallpapers/844/21/desktop-wallpaper-synthwave-girl-r-lofigirl-lofi-study.jpg",
+url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+     },
+
 {
-  name: "Async Awakenings",
-  artist: "Nina Netcode",
+  _id:"6",
+  name: "synthwave radio",
+  artist: "Lofi Girl",
   cover:
     "https://www.tododigital.com/__export/1681425793670/sites/elimparcial/img/2023/04/13/synth-boy.jpg_905808322.jpg",
+    url: "https://www.youtube.com/watch?v=MVPTGNGiI-4",
+     
 },
     {
-      name: "Functional Fury",
-      artist: "Beth Binary",
+      _id:"7",
+      name: "Teenage fever",
+      artist: "slowed+reverb",
       cover:
         "https://i.ytimg.com/vi/-jr3sznMWQI/mqdefault.jpg",
+        url: "https://www.youtube.com/watch?v=-jr3sznMWQI",
+         
     },
     
     {
-      name: "React Rendezvous",
-      artist: "Ethan Byte",
+      _id:"8",
+      name: "C H I L L V I B E S The Simpsons",
+      artist: "EYM",
       cover:
         "https://musicfeeds.com.au/wp-content/uploads/sites/7/simpsonwave-sunday-school-video-source-youtube-user-Lucien-Hughes.jpg",
+        url: "https://www.youtube.com/watch?v=oJnF5VxTO5g",
+         
     },
     {
+      _id:"9",
       name: "Stateful Symphony",
       artist: "Beth Binary",
       cover:
-        "https://cdn.dribbble.com/users/2281811/screenshots/9098223/media/6f1555fc55279c44a417c69f3806dac0.png?compress=1&resize=400x300",
+        "https://i.ytimg.com/vi/NxSDNogkKX0/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=NxSDNogkKX0&t=256s",
+         
     },
     
     {
+      _id:"10",
       name: "The Art of Reusability",
       artist: "Lena Logic",
       cover:
         "https://cdnb.artstation.com/p/assets/images/images/031/504/411/large/remart-perez-img-20201027-234758-512.jpg?1603816317",
+        url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+         
     },
   ]
