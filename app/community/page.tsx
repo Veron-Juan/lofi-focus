@@ -1,14 +1,11 @@
-
-import { Metadata } from "next"
 import { PlusCircle, Star } from "lucide-react"
-
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import VideoPlayer from "../lofi/components/VideoPlayer"
+import VideoPlayerCommunity from "./components/VideoPlayerCommunity"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -27,6 +24,8 @@ import LoaderPlayer from "../lofi/components/LoaderPlayer"
 import { cache, useState } from "react"
 import next from "next/types"
 import Link from "next/link"
+import { useFavoriteStore } from "@/store/store"
+
 
 
 
@@ -65,7 +64,7 @@ export default async function CommunityPage() {
   const data = await getData();
 
   
-  
+ 
 
   
 
@@ -76,7 +75,7 @@ export default async function CommunityPage() {
     <div className="border-t   ">
       <div className="bg-background   ">
         <div className=" max-w-[1300px] mx-auto ">
-        
+      
 
           
          
@@ -92,7 +91,7 @@ export default async function CommunityPage() {
                     
                     <Dialog>
           <DialogTrigger>
-            <Link href="/upload" >
+            <Link href="/upload" className={buttonVariants({ variant: "black", size: "default" })} >
             <PlusCircle className="mr-2  h-4 w-4" />
             Add music
             </Link>
@@ -147,10 +146,10 @@ export default async function CommunityPage() {
 
                   <Separator className="my-4" />
                 
-                  <div className="flex flex-wrap my-9 justify-center">
+                  <div className="flex flex-wrap my-9 justify-center gap-6">
                   {data?.map((i:any)=> {
                   return(
-                    <Card className="w-64 md:w-[270px] lg:w-[330px] h-auto  ml-4">
+                    <Card className="w-64 md:w-[270px] lg:w-[330px] h-auto  ml-4 pb-1">
                 
               
               <div className="flex items-center justify-between space-x-4 ml-3 my-4 mr-3">
@@ -180,10 +179,13 @@ export default async function CommunityPage() {
 </p>
             </div>
             </div>
-          <Star  />
+            <span >
+            <Star  />
+
+            </span>
           </div>
               <div className="flex justify-center ">
-              <VideoPlayer 
+              <VideoPlayerCommunity
               url={i.link}
               thumbnailSrc="/lofimusicsection.png"
               />
@@ -214,7 +216,7 @@ export default async function CommunityPage() {
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
+          T</div>
         </div>
       </div>
     </div>

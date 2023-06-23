@@ -23,7 +23,8 @@ type FavoriteItem = {
     artist: string
     cover: string
     url: string
-    _id:string
+    _id: string
+    title?:string
 };
 
 type FavoriteStore = {

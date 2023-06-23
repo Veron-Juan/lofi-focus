@@ -94,7 +94,7 @@ export default function Register() {
             Github
           </Button>
           <Button variant="outline">
-            
+          <Icons.google className="mr-2 h-4 w-4" />
             Google
           </Button>
         </div>

@@ -13,8 +13,7 @@ import { Sidebar } from "./components/sidebar"
 import { listenNowAlbums, madeForYouAlbums } from "./data/albums"
 import { playlists } from "./data/playlists"
 import "./styles.css"
-
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, Youtube } from "lucide-react"
 import SwiperCore, { Navigation, Pagination } from "swiper"
 import { Swiper, SwiperSlide } from "swiper/react"
 
@@ -25,11 +24,15 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { CardMenu } from "./components/CardMenu"
 import VideoPlayer from "./components/VideoPlayer"
 import "swiper/css"
+import { MouseEventHandler, useEffect, useState } from "react"
 import Link from "next/link"
 import { useFavoriteStore } from "@/store/store"
+import axios from "axios"
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 
 import LoaderPlayer from "./components/LoaderPlayer"
-import { MouseEventHandler, useState } from "react"
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -37,22 +40,42 @@ export const metadata: Metadata = {
 }
 
 export default function MusicPage() {
-  
-
-  const favorites = useFavoriteStore((state) => state.favorites);
+  const favorites = useFavoriteStore((state) => state.favorites)
 
   const [selectFav, setSelectFav] = useState("")
   const [selectImgFav, setselectImgFav] = useState("")
 
-  const handleFav = (url:string, image:string) => {
+  const handleFav = (url: string, image: string) => {
     setSelectFav(url)
     setselectImgFav(image)
   }
 
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Mostrar el loader
+        setLoading(true)
+
+        const response = await axios.get("http://localhost:3000/api/posts")
+        setData(response.data)
+
+        // Ocultar el loader
+        setLoading(false)
+      } catch (error) {
+        console.error(error)
+        // Maneja el error como desees
+      }
+    }
+
+    fetchData()
+  }, [])
+
   return (
     <>
       <div className="">
-        
         <div className="border-t  ">
           <div className="bg-background max-w-[1470px]">
             <div className="grid grid-cols-2 lg:grid-cols-5  ">
@@ -70,7 +93,7 @@ export default function MusicPage() {
                         <TabsTrigger value="favorites">Favorites</TabsTrigger>
                       </TabsList>
                       <div className="">
-                        <Button className="">
+                        <Button className="bg-black dark:bg-white dark:text-black">
                           <PlusCircle className="mr-2  h-4 w-4" />
                           Add music
                         </Button>
@@ -142,23 +165,81 @@ export default function MusicPage() {
                           Community
                         </h2>
                         <p className="text-sm text-muted-foreground">
-                          Your personal playlists. Updated daily.
+                          The last publications of people
                         </p>
                       </div>
+                      
+
                       <Separator className="my-4" />
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4">
-                            {madeForYouAlbums.map((album) => (
-                              <CardMenu
-                                key={album.name}
-                                album={album}
-                                className="w-[150px]"
-                                aspectRatio="square"
-                                width={150}
-                                height={150}
-                              />
-                            ))}
+                            
+                            {data ?  data.map((i: any) => (
+                              <Card className="w-[200px] hover:border-3 dark:hover:border-white hover:border-black duration-75">
+                                <Link href="community">
+                                <CardHeader>
+                                  <div className="flex items-center space-x-4 w-auto">
+                                  <Avatar>
+                                    <AvatarImage src={i.avatar} />
+                                    <AvatarFallback>OM</AvatarFallback>
+                                  </Avatar>
+                                  <div className="w-auto">
+                                    <p className="text-sm font-medium leading-none">
+                                      {i.username}
+                                    </p>
+                                    <p className="text-sm text-muted-foreground">
+                                    {(() => {
+  const createdAt = new Date(i.createdAt);
+  const fechaActual = new Date();
+
+  const diferenciaMilisegundos = fechaActual.getTime() - createdAt.getTime();
+  const minutosTranscurridos = Math.floor(diferenciaMilisegundos / (1000 * 60));
+  const horasTranscurridas = Math.floor(minutosTranscurridos / 60);
+  const diasTranscurridos = Math.floor(horasTranscurridas / 24);
+
+  if (minutosTranscurridos < 60) {
+    return `${minutosTranscurridos} min`;
+  } else if (horasTranscurridas < 24) {
+    return `${horasTranscurridas} h`;
+  } else {
+    return `${diasTranscurridos} days`;
+  }
+})()}
+                                    </p>
+                                  </div>
+                                  </div>
+                                  
+                                </CardHeader>
+                                <CardContent>
+                                  <div className="space-y-1 text-sm flex flex-col items-center">
+                                  
+                                  
+        <b className="font-medium leading-none">{i.title.charAt(0).toUpperCase() + i.title.slice(1)}</b>
+        <span className="w-[80px] text-black dark:text-white" >
+
+        <Youtube size="lg" />
+        </span>
+        {/* <p className="text-xs text-muted-foreground">{album.artist}</p> */}
+      </div>
+                                </CardContent>
+                                </Link>
+                              </Card>
+                            )) : 
+                            <div className="flex items-center space-x-4">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
+      </div>
+    </div> }
+                            {/* {data?.map((i) => (
+                              <Card>
+                                <CardContent>
+                                  <img width={70} src={i.avatar} />
+                                </CardContent>
+                              </Card>
+                            ))} */}
                           </div>
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
@@ -192,7 +273,7 @@ export default function MusicPage() {
                             Favorites
                           </h2>
                           <p className="text-sm text-muted-foreground">
-                          Here you can listen to your favorite lists.
+                            Here you can listen to your favorite lists.
                           </p>
                         </div>
                       </div>
@@ -201,43 +282,44 @@ export default function MusicPage() {
                       <div className="flex h-auto shrink-0 items-center  justify-center rounded-md border border-dashed  ">
                         <div className=" overflow-auto ">
                           <div className="my-5 flex justify-center">
-                            {favorites.length === 0 && 
-                            <div className="flex flex-col">
-                            <h3 className="mt-4 text-lg font-semibold text-center">No favorites added</h3>
-                            <p className="mb-4 mt-2 text-sm text-muted-foreground">
-                              You have not added any favorite. 
-                            </p>
-                            </div>
-                            }
-                            {!selectFav || favorites.length === 0  ? null :  
-                            <VideoPlayer
-                            url={selectFav}
-                            thumbnailSrc={selectImgFav}
-                            />
-                          }
+                            {favorites.length === 0 && (
+                              <div className="flex flex-col">
+                                <h3 className="mt-4 text-lg font-semibold text-center">
+                                  No favorites added
+                                </h3>
+                                <p className="mb-4 mt-2 text-sm text-muted-foreground">
+                                  You have not added any favorite.
+                                </p>
+                              </div>
+                            )}
+                            {!selectFav || favorites.length === 0 ? null : (
+                              <VideoPlayer
+                                url={selectFav}
+                                thumbnailSrc={selectImgFav}
+                              />
+                            )}
                           </div>
-                              
+
                           <div className="relative">
                             <ScrollArea>
                               <div className="flex space-x-4 pb-4">
                                 {favorites.map((fav) => (
                                   <CardMenu
-                                    key={fav.cover}
-                                    
+                                    key={fav._id}
                                     album={fav}
                                     className="w-[150px]"
                                     aspectRatio="square"
                                     width={150}
                                     height={150}
-                                    onClick={() => handleFav(fav.url, fav.cover )}
+                                    onClick={() =>
+                                      handleFav(fav.url, fav.cover)
+                                    }
                                   />
                                 ))}
-                                
                               </div>
                               <ScrollBar orientation="horizontal" />
                             </ScrollArea>
                           </div>
-                          
 
                           {/* <h3 className="mt-4 text-lg font-semibold">No episodes added</h3>
         <p className="mb-4 mt-2 text-sm text-muted-foreground">

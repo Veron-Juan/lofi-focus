@@ -102,6 +102,7 @@ export default function DemoCreateAccount() {
               Github
             </Button>
             <Button onClick={() => signIn("google")} variant="outline">
+            <Icons.google className="mr-2 h-4 w-4" />
               Google
             </Button>
           </div>

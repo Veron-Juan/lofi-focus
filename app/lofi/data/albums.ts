@@ -4,6 +4,7 @@ export interface Album {
     cover: string
     url:string
     _id:string
+    title?:string
     
   }
   
@@ -65,15 +66,15 @@ url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
     url: "https://www.youtube.com/watch?v=MVPTGNGiI-4",
      
 },
-    {
-      _id:"7",
-      name: "Teenage fever",
-      artist: "slowed+reverb",
-      cover:
-        "https://i.ytimg.com/vi/-jr3sznMWQI/mqdefault.jpg",
-        url: "https://www.youtube.com/watch?v=-jr3sznMWQI",
-         
-    },
+{
+  _id:"9",
+  name: "Stateful Symphony",
+  artist: "Beth Binary",
+  cover:
+    "https://i.ytimg.com/vi/NxSDNogkKX0/maxresdefault.jpg",
+    url: "https://www.youtube.com/watch?v=NxSDNogkKX0&t=256s",
+     
+},
     
     {
       _id:"8",
@@ -85,14 +86,16 @@ url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
          
     },
     {
-      _id:"9",
-      name: "Stateful Symphony",
-      artist: "Beth Binary",
+      _id:"7",
+      name: "Teenage fever",
+      artist: "slowed+reverb",
       cover:
-        "https://i.ytimg.com/vi/NxSDNogkKX0/maxresdefault.jpg",
-        url: "https://www.youtube.com/watch?v=NxSDNogkKX0&t=256s",
+        "https://i.ytimg.com/vi/-jr3sznMWQI/mqdefault.jpg",
+        url: "https://www.youtube.com/watch?v=-jr3sznMWQI",
          
     },
+    
+    
     
     {
       _id:"10",
