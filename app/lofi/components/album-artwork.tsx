@@ -18,9 +18,10 @@ import {
 import { Album } from "../data/albums"
 import { playlists } from "../data/playlists"
 import VideoPlayer from "./VideoPlayer"
-import { useState } from "react"
+
 import { useFavoriteStore } from "@/store/store"
 import { Toaster, toast  } from "sonner"
+
 
 interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   album: Album
@@ -33,7 +34,7 @@ interface CardProps {
   album: Album;
 }
 
-export function AlbumArtwork({
+export default function AlbumArtwork({
   album,
   aspectRatio = "portrait",
   width,
@@ -71,6 +72,7 @@ export function AlbumArtwork({
   
 
   return (
+    
     <div className={cn("space-y-3", className)} {...props}>
       <Toaster duration={1500}  />
       <ContextMenu>
@@ -96,5 +98,6 @@ export function AlbumArtwork({
             </div>
       </div>
     </div>
+    
   )
 }

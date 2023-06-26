@@ -1,7 +1,7 @@
 "use client"
 import dynamic from 'next/dynamic'
-import { Skeleton } from '@/components/ui/skeleton';
-import LoaderPlayer from './LoaderPlayer';
+
+import SingleVideoLouder from './SingleVideoLouder';
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
@@ -15,11 +15,12 @@ interface VideoPlayerProps  {
 
 const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc, url}) => {
   return (
+    
     <ReactPlayer
     
       light={<img className='h-full object-cover transition-all hover:scale-105 rounded-lg '   src={thumbnailSrc} alt='Thumbnail'/>}
       url={url}
-      fallback={<LoaderPlayer/>}
+      fallback={<SingleVideoLouder/>}
       controls
       
       playing
@@ -31,6 +32,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({thumbnailSrc, url}) => {
       
       
     />
+  
   );
 };
 

@@ -76,25 +76,7 @@ export function SiteHeader() {
             </p>
           </div>
         </DropdownMenuLabel>
-        {/* <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-            
-          </DropdownMenuItem>
-          
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            <span>New Team</span>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator /> */}
+        
         <DropdownMenuSeparator></DropdownMenuSeparator>
         <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
           <LogOut  className="mr-2 h-4 w-4" />

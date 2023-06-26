@@ -10,9 +10,19 @@ export const siteConfig = {
       href: "/",
     },
     {
+      title: "Lofi",
+      href:"/lofi"
+    },
+    {
+      title: "Pomodoro",
+      href:"/pomodoro"
+    },
+
+    {
       title: "Community",
       href: "/community"
-    }
+    },
+    
   ],
   links: {
     twitter: "https://twitter.com/shadcn",

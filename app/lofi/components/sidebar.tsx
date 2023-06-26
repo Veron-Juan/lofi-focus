@@ -114,28 +114,7 @@ import { useState } from "react"
 
             
             
-            {/* <div className="space-y-1">
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <ListMusic className="mr-2 h-4 w-4" />
-                Playlists
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <Music2 className="mr-2 h-4 w-4" />
-                Songs
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <User className="mr-2 h-4 w-4" />
-                Made for You
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <Mic2 className="mr-2 h-4 w-4" />
-                Artists
-              </Button>
-              <Button variant="ghost" size="sm" className="w-full justify-start">
-                <Library className="mr-2 h-4 w-4" />
-                Albums
-              </Button>
-            </div> */}
+            
           </div>
           
         </div>

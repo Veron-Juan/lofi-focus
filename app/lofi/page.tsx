@@ -1,12 +1,13 @@
 "use client"
 
 import { Metadata } from "next"
-
+import { Suspense, lazy } from "react"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { AlbumArtwork } from "./components/album-artwork"
+// import { AlbumArtwork } from "./components/album-artwork"
+
 import { Menu } from "./components/menu"
 import { PodcastEmptyPlaceholder } from "./components/podcast-empty-placeholder"
 import { Sidebar } from "./components/sidebar"
@@ -31,8 +32,11 @@ import axios from "axios"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-
+import LoaderTest from "@/utils/LoaderTest"
 import LoaderPlayer from "./components/LoaderPlayer"
+
+
+const AlbumArtwork = lazy(()=> import("./components/album-artwork") )
 
 export const metadata: Metadata = {
   title: "Music App",
@@ -75,6 +79,7 @@ export default function MusicPage() {
 
   return (
     <>
+    
       <div className="">
         <div className="border-t  ">
           <div className="bg-background max-w-[1470px]">
@@ -114,10 +119,16 @@ export default function MusicPage() {
                         </div>
                       </div>
 
+
+           
+                      
+
+                          
                       <Separator className="my-4" />
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4 ">
+                      <Suspense fallback={<LoaderPlayer/>}>
                             {madeForYouAlbums.map((album) => (
                               <AlbumArtwork
                                 key={album.name}
@@ -128,10 +139,12 @@ export default function MusicPage() {
                                 height={150}
                               />
                             ))}
+                      </Suspense>
                           </div>
                           <ScrollBar orientation="horizontal" />
                         </ScrollArea>
                       </div>
+                      
 
                       <div className="mt-6 space-y-1">
                         <h2 className="text-2xl font-semibold tracking-tight">
@@ -142,6 +155,7 @@ export default function MusicPage() {
                         </p>
                       </div>
                       <Separator className="my-4" />
+                          
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4">
@@ -168,71 +182,89 @@ export default function MusicPage() {
                           The last publications of people
                         </p>
                       </div>
-                      
 
                       <Separator className="my-4" />
                       <div className="relative">
                         <ScrollArea>
                           <div className="flex space-x-4 pb-4">
-                            
-                            {data ?  data.map((i: any) => (
-                              <Card className="w-[200px] hover:border-3 dark:hover:border-white hover:border-black duration-75">
-                                <Link href="community">
-                                <CardHeader>
-                                  <div className="flex items-center space-x-4 w-auto">
-                                  <Avatar>
-                                    <AvatarImage src={i.avatar} />
-                                    <AvatarFallback>OM</AvatarFallback>
-                                  </Avatar>
-                                  <div className="w-auto">
-                                    <p className="text-sm font-medium leading-none">
-                                      {i.username}
-                                    </p>
-                                    <p className="text-sm text-muted-foreground">
-                                    {(() => {
-  const createdAt = new Date(i.createdAt);
-  const fechaActual = new Date();
+                            {data ? (
+                              data.map((i: any) => (
+                                <Card className="w-[200px] hover:border-3 dark:hover:border-white hover:border-black duration-75">
+                                  <Link href="community">
+                                    <CardHeader>
+                                      <div className="flex items-center space-x-4 w-auto">
+                                        <Avatar>
+                                          <AvatarImage src={i.avatar} />
+                                          <AvatarFallback>OM</AvatarFallback>
+                                        </Avatar>
+                                        <div className="w-auto">
+                                          <p className="text-sm font-medium leading-none">
+                                            {i.username}
+                                          </p>
+                                          <p className="text-sm text-muted-foreground">
+                                            {(() => {
+                                              const createdAt = new Date(
+                                                i.createdAt
+                                              )
+                                              const fechaActual = new Date()
 
-  const diferenciaMilisegundos = fechaActual.getTime() - createdAt.getTime();
-  const minutosTranscurridos = Math.floor(diferenciaMilisegundos / (1000 * 60));
-  const horasTranscurridas = Math.floor(minutosTranscurridos / 60);
-  const diasTranscurridos = Math.floor(horasTranscurridas / 24);
+                                              const diferenciaMilisegundos =
+                                                fechaActual.getTime() -
+                                                createdAt.getTime()
+                                              const minutosTranscurridos =
+                                                Math.floor(
+                                                  diferenciaMilisegundos /
+                                                    (1000 * 60)
+                                                )
+                                              const horasTranscurridas =
+                                                Math.floor(
+                                                  minutosTranscurridos / 60
+                                                )
+                                              const diasTranscurridos =
+                                                Math.floor(
+                                                  horasTranscurridas / 24
+                                                )
 
-  if (minutosTranscurridos < 60) {
-    return `${minutosTranscurridos} min`;
-  } else if (horasTranscurridas < 24) {
-    return `${horasTranscurridas} h`;
-  } else {
-    return `${diasTranscurridos} days`;
-  }
-})()}
-                                    </p>
-                                  </div>
-                                  </div>
-                                  
-                                </CardHeader>
-                                <CardContent>
-                                  <div className="space-y-1 text-sm flex flex-col items-center">
-                                  
-                                  
-        <b className="font-medium leading-none">{i.title.charAt(0).toUpperCase() + i.title.slice(1)}</b>
-        <span className="w-[80px] text-black dark:text-white" >
+                                              if (minutosTranscurridos < 60) {
+                                                return `${minutosTranscurridos} min`
+                                              } else if (
+                                                horasTranscurridas < 24
+                                              ) {
+                                                return `${horasTranscurridas} h`
+                                              } else {
+                                                return `${diasTranscurridos} days`
+                                              }
+                                            })()}
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </CardHeader>
+                                    <CardContent>
+                                      <div className="space-y-1 text-sm flex flex-col items-center">
+                                        <b className="font-medium leading-none">
+                                          {i.title.charAt(0).toUpperCase() +
+                                            i.title.slice(1)}
+                                        </b>
 
-        <Youtube size="lg" />
-        </span>
-        {/* <p className="text-xs text-muted-foreground">{album.artist}</p> */}
-      </div>
-                                </CardContent>
-                                </Link>
-                              </Card>
-                            )) : 
-                            <div className="flex items-center space-x-4">
-      <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
-      </div>
-    </div> }
+                                        <svg className="w-12 h-12 my-4 text-[#0b0b10] dark:text-slate-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" viewBox="0 0 384 512"><path d="M361 215C375.3 223.8 384 239.3 384 256C384 272.7 375.3 288.2 361 296.1L73.03 472.1C58.21 482 39.66 482.4 24.52 473.9C9.377 465.4 0 449.4 0 432V80C0 62.64 9.377 46.63 24.52 38.13C39.66 29.64 58.21 29.99 73.03 39.04L361 215z"/></svg>
+                                        {/* <span className="w-[80px] text-black dark:text-white">
+                                          <Youtube size="lg" />
+                                        </span> */}
+                                        {/* <p className="text-xs text-muted-foreground">{album.artist}</p> */}
+                                      </div>
+                                    </CardContent>
+                                  </Link>
+                                </Card>
+                              ))
+                            ) : (
+                              <div className="flex items-center space-x-4">
+                                <Skeleton className="h-12 w-12 rounded-full" />
+                                <div className="space-y-2">
+                                  <Skeleton className="h-4 w-[250px]" />
+                                  <Skeleton className="h-4 w-[200px]" />
+                                </div>
+                              </div>
+                            )}
                             {/* {data?.map((i) => (
                               <Card>
                                 <CardContent>
@@ -293,6 +325,7 @@ export default function MusicPage() {
                               </div>
                             )}
                             {!selectFav || favorites.length === 0 ? null : (
+                              
                               <VideoPlayer
                                 url={selectFav}
                                 thumbnailSrc={selectImgFav}
@@ -301,6 +334,7 @@ export default function MusicPage() {
                           </div>
 
                           <div className="relative">
+                           
                             <ScrollArea>
                               <div className="flex space-x-4 pb-4">
                                 {favorites.map((fav) => (
@@ -319,6 +353,7 @@ export default function MusicPage() {
                               </div>
                               <ScrollBar orientation="horizontal" />
                             </ScrollArea>
+                          
                           </div>
 
                           {/* <h3 className="mt-4 text-lg font-semibold">No episodes added</h3>
@@ -336,6 +371,7 @@ export default function MusicPage() {
           </div>
         </div>
       </div>
+      
     </>
   )
 }

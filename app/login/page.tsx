@@ -90,10 +90,8 @@ export default function DemoCreateAccount() {
           </h2>
         </div>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>
-            Enter your email below to create your account
-          </CardDescription>
+          <CardTitle className="text-2xl">Welcome to Lofi focus, Login with</CardTitle>
+          
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid grid-cols-2 gap-6">
@@ -112,7 +110,7 @@ export default function DemoCreateAccount() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                Or continue with email
               </span>
             </div>
           </div>
@@ -123,7 +121,7 @@ export default function DemoCreateAccount() {
             </div>
             <div className="grid gap-2">
               <Label  htmlFor="password">Password</Label>
-              <Input name="password" id="password" type="password" />
+              <Input name="password" id="password" type="password" placeholder="********"  />
             </div>
             <Button className="w-full mt-5">Log in</Button>
           </form>
