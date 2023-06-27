@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Music, PlusCircle, TimerReset, Users } from "lucide-react"
 
-import { siteConfig } from "@/config/site"
+
 import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Card,
@@ -14,17 +14,18 @@ import {
 } from "@/components/ui/card"
 import { useSession } from "next-auth/react"
 import { getServerSession } from "next-auth";
-import { useAuthStore } from "@/store/store"
+
+import {ContainerSlice, ContainerSliceRight }from "@/components/ContainerSlice"
 
 export default async function IndexPage() {
   
   const session = await getServerSession();
   
-  console.log(session)
+  
 
   return (
-    <>
-      <section className="flex justify-center md:items-center  max-w-7xl mx-auto mt-16 flex-col items-center px-7   ">
+    <div className="overflow-x-hidden">
+      <section className="flex justify-center md:items-center   max-w-7xl mx-auto mt-16 flex-col items-center px-7    ">
         
       <h1 className="text-3xl text-center md:text-5xl lg:text-7xl font-extrabold leading-tight tracking-tighter   text-black dark:text-white ">
           Your space for relaxation and concentration 
@@ -35,11 +36,11 @@ export default async function IndexPage() {
 
 
 
-        <div className="md:flex items-center  ">
+        <div className="md:flex items-center  overflow-x-hidden  ">
 
           
           
-        <div className="flex md:flex-1 md:mb-[40px] max-w-[900px] flex-col  ">
+        <div className="flex md:flex-1 md:mb-[40px] max-w-[900px] flex-col   ">
           
           {/* <h2 className=" my-3  leading-tight tracking-tighter md:text-4xl text-2xl  text-black dark:text-white">
             Your space for relaxation and concentration.{" "}
@@ -87,16 +88,13 @@ export default async function IndexPage() {
 
 
 
-<div className="flex  gap-6   mt-12 md:mt-6 ">
+<div className="flex  gap-6   mt-12 md:mt-6  ">
         <Card className=" w-[90px] h-[90px] md:w-[120px] md:h-[120px] flex items-center justify-center gap-3  hover:bg-neutral-200/90 dark:hover:bg-inherit dark:hover:opacity-60 ">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 xs:flex-col xs:text-xs">
               <Music strokeWidth={2.5} />
               Lofi Music
             </CardTitle>
-            {/* <CardDescription>
-          Invite your team members to collaborate.
-        </CardDescription> */}
           </CardHeader>
         </Card>
         <Card className=" w-[90px] h-[90px] md:w-[120px] md:h-[120px] flex items-center justify-center gap-3  hover:bg-neutral-200/90 dark:hover:bg-inherit dark:hover:opacity-60">
@@ -116,9 +114,6 @@ export default async function IndexPage() {
               <Users strokeWidth={2.5} />
               Community
             </CardTitle>
-            {/* <CardDescription>
-          Invite your team members to collaborate.
-        </CardDescription> */}
           </CardHeader>
         </Card>
       </div>
@@ -128,6 +123,7 @@ export default async function IndexPage() {
       
       {/* <div className="max-w-[1000px]  flex justify-between items-start mt-2 gap-24 xs:gap-7 xs:flex-col xs:items-center" > */}
 
+        <ContainerSlice>
       <div className=" flex flex-col  items-center md:justify-center md:flex-row md:mb-40 md:px-6 mt-20  gap-6">
         <Image
           src="/sculpturemusicbg.png"
@@ -155,7 +151,12 @@ export default async function IndexPage() {
           </div>
         </div>
       </div>
+      </ContainerSlice>
 
+
+
+
+        <ContainerSliceRight>
       <div className="flex  mt-20 gap-7  flex-col-reverse items-center md:justify-center md:flex-row md:mb-40   md:px-6  ">
         <div className="flex flex-col gap-5 max-w-[480px]  xs:my-1  xs:text-center">
           <h3 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-5xl ">
@@ -184,7 +185,9 @@ export default async function IndexPage() {
           height={380}
         />
       </div>
+      </ContainerSliceRight>
 
+        <ContainerSlice>
       <div className=" flex flex-col  items-center md:justify-center md:flex-row  md:px-6 md:mb-40  mt-20 gap-6">
         <Image
           src="/community.png"
@@ -212,6 +215,7 @@ export default async function IndexPage() {
           </div>
         </div>
       </div>
-    </>
+      </ContainerSlice>
+    </div>
   )
 }

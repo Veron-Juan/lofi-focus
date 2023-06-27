@@ -29,6 +29,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
+    "framer-motion": "^10.12.17",
     "jsonwebtoken": "^9.0.0",
     "lucide-react": "0.105.0-alpha.4",
     "mongoose": "6.11.1",
