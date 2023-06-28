@@ -82,52 +82,18 @@ export default async function CommunityPage() {
           <div className=" col-span-3 lg:col-span-4   ">
             <div className="h-full px-4 py-6 lg:px-8 ">
               <Tabs defaultValue="music" className="h-full space-y-6  ">
-                <div className="flex justify-between   relative ">
+                <div className=" mx-auto text-center relative ">
                   <h1 className="text-3xl text-center md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tighter   text-black dark:text-white">
                     Welcome our Community
                   </h1>
 
-                  <div className="">
+                  {/* <div className="mt-5">
                     
-                    <Dialog>
-          <DialogTrigger>
             <Link href="/upload" className={buttonVariants({ variant: "black", size: "default" })} >
             <PlusCircle className="mr-2  h-4 w-4" />
             Add music
             </Link>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add music</DialogTitle>
-              <DialogDescription>
-                Copy and paste the music lofi feed URL to import.
-              </DialogDescription>
-            </DialogHeader>
-            <form  >
-            <div className="grid gap-4 py-4">
-              <div className="grid gap-2">
-                <Label htmlFor="link">Video URL</Label>
-                <Input id="link" name="link" placeholder="https://example.com/feed.xml" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="Title">Title</Label>
-                <Input id="title" name="title" placeholder="Lofi Example" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
-                <Input id="description" name="description" placeholder="description example" />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button>Import Music</Button>
-            </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
-
-
-
-                  </div>
+                  </div> */}
                 </div>
                 <TabsContent
                   value="music"
@@ -142,6 +108,13 @@ export default async function CommunityPage() {
                         Top picks for you. Updated daily.
                       </p>
                     </div>
+                    <div className="">
+                    
+            <Link href="/upload" className={buttonVariants({ variant: "black", size: "default" })} >
+            <PlusCircle className="mr-2  h-4 w-4" />
+            Add music
+            </Link>
+                  </div>
                   </div>
 
                   <Separator className="my-4" />

@@ -27,7 +27,7 @@ interface AlbumArtworkProps extends React.HTMLAttributes<HTMLDivElement> {
   height?: number
 }
 
-export function CardMenu({
+export function CardMenuFavs({
   album,
   aspectRatio = "portrait",
   width,
@@ -88,10 +88,7 @@ export function CardMenu({
       <div className="space-y-1 text-sm relative">
         <h3 className="font-medium leading-none">{album.name}</h3>
         <p className="text-xs text-muted-foreground">{album.artist}</p>
-        <span onClick={handleStarClick } className="absolute right-0 bottom-3 cursor-pointer  hover:text-fuchsia-800 hover:transform-gpu hover:scale-150 hover:transition-all ">
-
-        <Star width={20}  />
-        </span>
+        
       </div>
     </div>
   )

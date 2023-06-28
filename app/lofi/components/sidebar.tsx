@@ -49,7 +49,7 @@ import { useState } from "react"
     return (
       <div className={cn("pb-12", className)}>
         <div className="space-y-4 py-4">
-          <div className="px-4 py-2">
+          {/* <div className="px-4 py-2">
             <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
               Discover
             </h2>
@@ -71,7 +71,7 @@ import { useState } from "react"
                 Radio
               </Button>
             </div>
-          </div>
+          </div> */}
           <div className="px-4 py-2">
             <h2 className="mb-2 px-2 text-lg font-semibold tracking-tight">
               Favorites

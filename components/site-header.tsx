@@ -18,7 +18,15 @@ import { DropdownMenu,
       
     } from "./ui/dropdown-menu"
 
-   
+    import {
+      Sheet,
+      SheetContent,
+      SheetDescription,
+      SheetHeader,
+      SheetTitle,
+      SheetTrigger,
+    } from "@/components/ui/sheet"
+    
     
 
 
@@ -48,9 +56,14 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <MainNav items={siteConfig.mainNav} />
+        <div className="">
+        <MainNav   items={siteConfig.mainNav} />
+        </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           {/* <AlignLeft/> */}
+          
+          
+
          
 
           <nav className="flex items-center space-x-1">
@@ -58,7 +71,40 @@ export function SiteHeader() {
             
             <ThemeToggle />
 
-            
+            <div className="flex sm:hidden">
+          <Sheet >
+  <SheetTrigger>
+  <AlignLeft />
+  </SheetTrigger>
+  <SheetContent>
+    
+    
+      <ul className="flex flex-col gap-6 mx-auto justify-center text-center mt-6 ">
+        
+        <Link href="/"  className="hover:opacity-75" >
+        <SheetTitle>Home</SheetTitle>
+        </Link>
+        <Link href="/lofi" className="hover:opacity-75">
+        <SheetTitle>Lofi</SheetTitle>
+        </Link>
+        <Link href="/pomodoro" className="hover:opacity-75">
+        <SheetTitle>Pomodoro</SheetTitle>
+        </Link>
+        <Link href="/community" className="hover:opacity-75">
+        <SheetTitle>Community</SheetTitle>
+        </Link>
+        
+        
+      </ul>
+      {/* <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+      <SheetDescription>
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
+      </SheetDescription> */}
+    
+  </SheetContent>
+</Sheet>
+</div>
             
             {session.status === "authenticated" || user ?  (
 
@@ -71,7 +117,10 @@ export function SiteHeader() {
                 
               
                 <Avatar>
-                <img src={imageUser || "" } />
+                  <AvatarImage src={imageUser || "" }>
+                  
+                  </AvatarImage>
+                
               <AvatarFallback>{user?.username.charAt(0).toUpperCase()}</AvatarFallback>
                 </Avatar>
               

@@ -19,7 +19,7 @@ export default function Loading() {
               
               
               <div className="pb-12">
-              <div className="space-y-4 py-4">
+              <div className="space-y-4 py-4 sm:hidden xs:hidden">
                 <div className="px-4 py-5">
                   
 

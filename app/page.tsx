@@ -75,10 +75,12 @@ export default async function IndexPage() {
           </div>
         </div>
         <div className="hidden md:block justify-start   mt-4">
-          <img
+          <Image
             className=" w-[220px] h-[220px]  md:w-[300px] md:h-[300px] lg:w-[350px] lg:h-[350px] "
             src="/hero.png"
             alt="hero"
+            width={220}
+            height={220}
           />
         </div>
 
@@ -90,31 +92,29 @@ export default async function IndexPage() {
 
 <div className="flex  gap-6   mt-12 md:mt-6  ">
         <Card className=" w-[90px] h-[90px] md:w-[120px] md:h-[120px] flex items-center justify-center gap-3  hover:bg-neutral-200/90 dark:hover:bg-inherit dark:hover:opacity-60 ">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 xs:flex-col xs:text-xs">
+          
+            <CardTitle className="flex items-center gap-2 flex-col text-md ">
               <Music strokeWidth={2.5} />
               Lofi Music
             </CardTitle>
-          </CardHeader>
+          
         </Card>
         <Card className=" w-[90px] h-[90px] md:w-[120px] md:h-[120px] flex items-center justify-center gap-3  hover:bg-neutral-200/90 dark:hover:bg-inherit dark:hover:opacity-60">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 xs:flex-col xs:text-xs ">
+          
+            <CardTitle className="flex items-center gap-2 flex-col text-md ">
               <TimerReset strokeWidth={2.5} />
-              Pomodoro Tecnice
+              Pomodoro 
             </CardTitle>
-            {/* <CardDescription>
-          Invite your team members to collaborate.
-        </CardDescription> */}
-          </CardHeader>
+            
+          
         </Card>
         <Card className="w-[90px] h-[90px] md:w-[120px] md:h-[120px] flex items-center justify-center gap-3  hover:bg-neutral-200/90 dark:hover:bg-inherit dark:hover:opacity-60">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 xs:flex-col xs:text-xs">
+          
+            <CardTitle className="flex items-center gap-2 flex-col text-md">
               <Users strokeWidth={2.5} />
               Community
             </CardTitle>
-          </CardHeader>
+          
         </Card>
       </div>
       
@@ -126,14 +126,14 @@ export default async function IndexPage() {
         <ContainerSlice>
       <div className=" flex flex-col  items-center md:justify-center md:flex-row md:mb-40 md:px-6 mt-20  gap-6">
         <Image
-          src="/sculpturemusicbg.png"
+          src="/sculpturemusicbg.webp"
           alt="image"
-          className=" object-cover  rounded-lg shadow-xl xs:w-80 "
-          width={380}
-          height={380}
+          className=" object-cover  rounded-lg shadow-xl sm:w-[380px] sm:h-[365px]  "
+          width={315}
+          height={315}
         />
         <div className="flex flex-col gap-5 max-w-[480px]  xs:my-1  xs:text-center">
-          <h3 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-start md:ml-4 lg:text-5xl  ">
+          <h3 className="scroll-m-20 ml-6 text-black dark:text-white text-4xl font-extrabold tracking-tight md:text-start md:ml-4 lg:text-5xl  ">
             Lofi Music
           </h3>
           <p className="text-justify px-7 md:px-4">
@@ -141,7 +141,7 @@ export default async function IndexPage() {
             makes it easy to keep the focus on the foreground, plus it's 2x more
             accurate than other apps.
           </p>
-          <div className="text-[15px] md:text-start md:ml-3">
+          <div className="text-[15px] ml-6 md:text-start md:ml-3">
             <Link
               href="/lofi"
               className={buttonVariants({ variant: "black", size: "default" })}
@@ -159,7 +159,7 @@ export default async function IndexPage() {
         <ContainerSliceRight>
       <div className="flex  mt-20 gap-7  flex-col-reverse items-center md:justify-center md:flex-row md:mb-40   md:px-6  ">
         <div className="flex flex-col gap-5 max-w-[480px]  xs:my-1  xs:text-center">
-          <h3 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-5xl ">
+          <h3 className="scroll-m-20 ml-6 text-4xl text-black dark:text-white font-extrabold tracking-tight md:text-5xl ">
             Pomodoro Tecnique
           </h3>
 
@@ -168,7 +168,7 @@ export default async function IndexPage() {
             makes it easy to keep the focus on the foreground, plus it's 2x more
             accurate than other apps.
           </p>
-          <div className="text-[15px] md:text-start md:ml-3">
+          <div className="text-[15px] ml-6 md:text-start md:ml-3">
             <Link
               href="/lofi"
               className={buttonVariants({ variant: "black", size: "default" })}
@@ -178,11 +178,11 @@ export default async function IndexPage() {
           </div>
         </div>
         <Image
-          src="/pomodorosculpture.png"
+          src="/pomodorosculpture.webp"
           alt="image"
-          className=" object-cover  rounded-lg shadow-xl xs:w-80 "
-          width={380}
-          height={380}
+          className=" object-cover  rounded-lg shadow-xl sm:w-[380px] sm:h-[365px]  "
+          width={315}
+          height={315}
         />
       </div>
       </ContainerSliceRight>
@@ -190,14 +190,14 @@ export default async function IndexPage() {
         <ContainerSlice>
       <div className=" flex flex-col  items-center md:justify-center md:flex-row  md:px-6 md:mb-40  mt-20 gap-6">
         <Image
-          src="/community.png"
+          src="/community.webp"
           alt="image"
-          className=" object-cover  rounded-lg shadow-xl xs:w-80 "
-          width={380}
-          height={380}
+          className=" object-cover  rounded-lg shadow-xl sm:w-[380px] sm:h-[365px]  "
+          width={315}
+          height={315}
         />
         <div className="flex flex-col gap-5 max-w-[480px]  xs:my-1  xs:text-center">
-          <h3 className="scroll-m-20 text-4xl font-extrabold tracking-tight md:text-start md:ml-4 lg:text-5xl  ">
+          <h3 className="scroll-m-20 ml-6 text-4xl text-black dark:text-white font-extrabold tracking-tight md:text-start md:ml-4 lg:text-5xl  ">
             Community
           </h3>
           <p className="text-justify px-7 md:px-4">
@@ -205,7 +205,7 @@ export default async function IndexPage() {
             makes it easy to keep the focus on the foreground, plus it's 2x more
             accurate than other apps.
           </p>
-          <div className="text-[15px] md:text-start md:ml-3">
+          <div className="text-[15px] ml-6 md:text-start md:ml-3">
             <Link
               href="/lofi"
               className={buttonVariants({ variant: "black", size: "default" })}

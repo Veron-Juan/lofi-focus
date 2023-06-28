@@ -76,16 +76,16 @@ export default function Register() {
 
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto mt-12">
         
         {error && <div className="bg-red-500 text-white p-2 mb-2 rounded-md mt-3">{error}</div>}
     <Card>
       
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Create an account</CardTitle>
-        <CardDescription>
+        {/* <CardDescription>
           Enter your email below to create your account
-        </CardDescription>
+        </CardDescription> */}
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">

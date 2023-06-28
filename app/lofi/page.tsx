@@ -34,6 +34,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import LoaderTest from "@/utils/LoaderTest"
 import LoaderPlayer from "./components/LoaderPlayer"
+import { CardMenuFavs } from "./components/CardMenuFavs"
 
 
 const AlbumArtwork = lazy(()=> import("./components/album-artwork") )
@@ -338,7 +339,7 @@ export default function MusicPage() {
                             <ScrollArea>
                               <div className="flex space-x-4 pb-4">
                                 {favorites.map((fav) => (
-                                  <CardMenu
+                                  <CardMenuFavs
                                     key={fav._id}
                                     album={fav}
                                     className="w-[150px]"

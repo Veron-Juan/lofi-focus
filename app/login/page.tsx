@@ -70,7 +70,7 @@ export default function DemoCreateAccount() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto mt-12">
       
       {session.status === 'loading' ? (<Spinner/>) : 
       
@@ -78,19 +78,21 @@ export default function DemoCreateAccount() {
       <Card>
         
 
-        <div className="flex items-center justify-center gap-2 relative mr-12">
-          <img
-            className=" mt-6"
-            src="/sculptureLogin.svg"
-            width={190}
-            alt="login"
-          />
-          <h2 className="font-bold text-xl absolute right-[50px]">
-            Lofi Focus
-          </h2>
-        </div>
+        {/* <div className="flex items-center justify-center gap-2 relative mr-12">
+        <div className="flex items-center ">
+        <img className="h-14 w-14 mb-1" src="/logo-lofi.svg"  />
+        
+        <span className="inline-block font-bold">Lofi Focus</span>
+      </div>
+
+
+        </div> */}
+
+
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Welcome to Lofi focus, Login with</CardTitle>
+          <CardTitle className="text-2xl ">
+          {/* <img className="h-14 w-14 mb-1" src="/logo-lofi.svg"  /> */}
+            Welcome to Lofi focus, Login with</CardTitle>
           
         </CardHeader>
         <CardContent className="grid gap-4">

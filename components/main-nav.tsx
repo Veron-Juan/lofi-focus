@@ -14,13 +14,13 @@ interface MainNavProps {
 export function MainNav({ items }: MainNavProps) {
   return (
     <div className="flex gap-6 md:gap-10">
-      <Link href="/" className="flex items-center space-x-2">
-        <img className="h-20 w-20 mt-5" src="/sculptureLogin.svg"  />
+      <Link href="/" className="flex items-center ">
+        <img className="h-14 w-14 mb-1" src="/logo-lofi.svg"  />
         {/* <Icons.logo className="h-6 w-6" /> */}
         <span className="inline-block font-bold">{siteConfig.name}</span>
       </Link>
       {items?.length ? (
-        <nav className="flex gap-6">
+        <nav className="hidden sm:flex gap-6  ">
           {items?.map(
             (item, index) =>
               item.href && (

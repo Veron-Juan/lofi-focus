@@ -29,7 +29,7 @@ export interface Album {
     },
     {
       _id:"3",
-      name: "chill beats to relax/study to",
+      name: "chill beats to relax",
       artist: "HITO",
       cover:
         "https://i.ytimg.com/vi/3C_KO2Fmqes/maxresdefault.jpg",
@@ -38,11 +38,29 @@ export interface Album {
     },
     {
       _id:"4",
-      name: "japanese night cafe vibes",
+      name: "japanese night cafe ",
       artist: "Chill with Taiki",
       cover:
         "https://i.ytimg.com/vi/9FvvbVI5rYA/maxresdefault.jpg",
         url: "https://www.youtube.com/watch?v=jfKfPfyJRdk",
+         
+    },
+    {
+      _id:"5",
+      name: "nordic home office",
+      artist: "Cozy Nordic",
+      cover:
+        "https://i.ytimg.com/vi/c3suauAz0zQ/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=c3suauAz0zQ&t=3156s",
+         
+    },
+    {
+      _id:"6",
+      name: "Answer in the stars",
+      artist: "Dreamy",
+      cover:
+        "https://i.ytimg.com/vi/_DwmKtbVFJ4/maxresdefault.jpg",
+        url: "https://www.youtube.com/watch?v=_DwmKtbVFJ4",
          
     },
   ]

@@ -66,7 +66,7 @@ export default function AlbumArtwork({
     
   };
 
-  const divClassName = `absolute right-0 bottom-2 cursor-pointer  hover:text-fuchsia-800 ` ;
+  const divClassName = `absolute right-0 bottom-2 cursor-pointer  hover:text-fuchsia-800 hover:transform-gpu hover:scale-150 hover:transition-all` ;
 
   
   
